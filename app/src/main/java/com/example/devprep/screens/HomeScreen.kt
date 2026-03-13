@@ -1,7 +1,6 @@
 package com.example.devprep.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,17 +30,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.devprep.components.CategoryCard
 import com.example.devprep.data.Category
 
 @Composable
 fun HomeHeader(){
     Box(modifier = Modifier.fillMaxWidth()
-        .height(135.dp)
+        .height(150.dp)
         .clip(
             RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp)
         )
@@ -57,7 +55,7 @@ fun HomeHeader(){
             .padding(top = 30.dp,start = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
-            Text(text = "DevPrep", fontSize = 52.sp,
+            Text(text = "DevPrep", fontSize = 38.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(2.dp))
@@ -67,9 +65,9 @@ fun HomeHeader(){
         }
     }
 }
-@Preview(showBackground = true, showSystemUi = true)
+//@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavHostController){
     val categories = listOf(
         Category("Kotlin",Icons.Default.Code),
         Category("JetPack Compose",Icons.Default.Android),
@@ -80,7 +78,8 @@ fun HomeScreen(){
         Category("Android Basics",Icons.Default.PhoneAndroid),
         Category("System Design",Icons.Default.Settings)
     )
-    Column(modifier = Modifier.padding(8.dp),
+    Column(modifier = Modifier.padding(8.dp)
+        .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         HomeHeader()
@@ -95,7 +94,9 @@ fun HomeScreen(){
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(categories){category->
-                    CategoryCard(category)
+                    CategoryCard(category,onClick = {
+                        navController.navigate("questions/${category.title}")
+                    })
 
                 }
             }
