@@ -61,7 +61,7 @@
   },
   {
     "id":6,
-    "category":"Jetpack Compose",
+    "category":"JetPack Compose",
     "question":"What is Jetpack Compose?",
     "option1":"UI toolkit",
     "option2":"Database",
@@ -73,7 +73,7 @@
   },
   {
     "id":7,
-    "category":"Jetpack Compose",
+    "category":"JetPack Compose",
     "question":"Which annotation is used to define a composable function?",
     "option1":"@Composable",
     "option2":"@UI",
@@ -85,7 +85,7 @@
   },
   {
     "id":8,
-    "category":"Jetpack Compose",
+    "category":"JetPack Compose",
     "question":"Which layout arranges elements vertically?",
     "option1":"Row",
     "option2":"Column",
@@ -97,7 +97,7 @@
   },
   {
     "id":9,
-    "category":"Jetpack Compose",
+    "category":"JetPack Compose",
     "question":"Which layout arranges elements horizontally?",
     "option1":"Column",
     "option2":"Row",
@@ -109,7 +109,7 @@
   },
   {
     "id":10,
-    "category":"Jetpack Compose",
+    "category":"JetPack Compose",
     "question":"What does remember do in Compose?",
     "option1":"Stores state",
     "option2":"Loads images",
@@ -121,7 +121,7 @@
   },
   {
     "id":11,
-    "category":"MVVM",
+    "category":"MVVM & Architecture",
     "question":"What does MVVM stand for?",
     "option1":"Model View ViewModel",
     "option2":"Main View Model",
@@ -133,7 +133,7 @@
   },
   {
     "id":12,
-    "category":"MVVM",
+    "category":"MVVM & Architecture",
     "question":"Which layer handles UI logic?",
     "option1":"Model",
     "option2":"ViewModel",
@@ -145,7 +145,7 @@
   },
   {
     "id":13,
-    "category":"MVVM",
+    "category":"MVVM & Architecture",
     "question":"Which layer holds data?",
     "option1":"Model",
     "option2":"View",
@@ -193,7 +193,7 @@
   },
   {
     "id":17,
-    "category":"Retrofit",
+    "category":"Retrofit_API",
     "question":"What is Retrofit used for?",
     "option1":"Networking",
     "option2":"Database",
@@ -205,7 +205,7 @@
   },
   {
     "id":18,
-    "category":"Retrofit",
+    "category":"Retrofit_API",
     "question":"Which annotation defines GET request?",
     "option1":"@GET",
     "option2":"@POST",
@@ -217,7 +217,7 @@
   },
   {
     "id":19,
-    "category":"Room",
+    "category":"Room Database",
     "question":"What is Room in Android?",
     "option1":"Networking library",
     "option2":"Database ORM",
@@ -229,7 +229,7 @@
   },
   {
     "id":20,
-    "category":"Room",
+    "category":"Room Database",
     "question":"Which annotation marks a database entity?",
     "option1":"@Entity",
     "option2":"@Table",

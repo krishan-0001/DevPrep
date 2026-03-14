@@ -3,6 +3,7 @@ package com.example.devprep.data.local
 
 import android.content.Context
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -12,39 +13,47 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class QuestionViewModel(private val dao: QuestionDao,private val context: Context) : ViewModel() {
-    var questions by mutableStateOf<List<QuestionEntity>>(emptyList())
+    var questions = mutableStateListOf<QuestionEntity>()
         private set
-    fun loadQuestions(category: String){
-        viewModelScope.launch {
-            val result: List<QuestionEntity> = withContext(Dispatchers.IO){
-                if(dao.getQuestionCount()==0){
-                    val questions = JsonLoader.loadQuestions(context)
-                    dao.insertAll(questions)
-                }
-                dao.getQuestionsByCategory(category)
-            }
-            questions = result
+    var score by mutableStateOf(0)
+        private set
+    private val answeredQuestions = mutableSetOf<Int>()
 
+    fun loadQuestions(category: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            if(dao.getQuestionCount()==0){
+                val loadedQuestions = JsonLoader.loadQuestions(context)
+                dao.insertAll(loadedQuestions)
+            }
+            val result = dao.getQuestionsByCategory(category)
+            withContext(Dispatchers.Main){
+                questions.clear()
+                questions.addAll(result)
+            }
         }
 
+    }
+    fun onCheckAnswer(selectedOption: Int, question: QuestionEntity) {
+        if(answeredQuestions.contains(question.id)){
+            return
+        }
+        if (selectedOption == question.correctAnswer) {
+            score+=10
+        }
+        answeredQuestions.add(question.id)
     }
     fun toggleBookmark(question: QuestionEntity){
         viewModelScope.launch {
             val newState = !question.isBookmarked
-            withContext(Dispatchers.IO){
                 dao.updateBookmark(
                     questionId = question.id,
                     bookmarked = newState
                 )
+            val index = questions.indexOf(question)
+            if(index!=-1){
+                questions[index] = question.copy(isBookmarked = newState)
             }
-            questions = questions.map{
-                if(it.id==question.id){
-                    it.copy(isBookmarked = newState)
-                }
-                else{
-                    it
-                }
-            }
+
 
         }
     }

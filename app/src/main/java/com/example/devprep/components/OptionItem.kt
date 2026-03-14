@@ -14,19 +14,29 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun OptionItem(text: String,
-               index: Int,
+               optionNumber: Int,
                selectedOption: Int,
+               correctAnswer: Int,
+               showResult: Boolean,
                onClick: () -> Unit){
+
+    val backgroundColor = when{
+        !showResult && selectedOption==optionNumber ->
+            Color(0xFFBBDEFB)
+        showResult && selectedOption==optionNumber ->
+            Color(0xFFC8E6C9)
+        showResult && selectedOption == optionNumber && selectedOption != correctAnswer ->
+            Color(0xFFFFCDD2)
+        else->
+            Color.White
+    }
+
+
     Card(modifier = Modifier.fillMaxWidth()
         .padding(vertical = 6.dp)
         .clickable{onClick()},
         colors = CardDefaults.cardColors(
-            containerColor = if(selectedOption==index){
-                Color(0xFFD6EAF8)
-            }
-            else{
-                Color.White
-            }
+            containerColor = backgroundColor
         )) {
         Text(text = text, modifier = Modifier.padding(16.dp),
             style = MaterialTheme.typography.bodyLarge)

@@ -73,7 +73,7 @@ fun HomeScreen(navController: NavHostController){
         Category("JetPack Compose",Icons.Default.Android),
         Category("MVVM & Architecture",Icons.Default.AccountTree),
         Category("Coroutines",Icons.Default.Sync),
-        Category("Retrofit/API",Icons.Default.Cloud),
+        Category("Retrofit_API",Icons.Default.Cloud),
         Category("Room Database",Icons.Default.Storage),
         Category("Android Basics",Icons.Default.PhoneAndroid),
         Category("System Design",Icons.Default.Settings)
@@ -95,7 +95,8 @@ fun HomeScreen(navController: NavHostController){
             ) {
                 items(categories){category->
                     CategoryCard(category,onClick = {
-                        navController.navigate("questions/${category.title}")
+                        val encodedCategory = java.net.URLEncoder.encode(category.title, "UTF-8")
+                        navController.navigate("questions/${encodedCategory}")
                     })
 
                 }

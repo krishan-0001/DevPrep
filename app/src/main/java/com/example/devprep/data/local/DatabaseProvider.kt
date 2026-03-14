@@ -9,20 +9,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object DatabaseProvider {
-    fun provideDatabase(context: Context): AppDatabase{
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "devprep_database"
-        ).addCallback(object : RoomDatabase.Callback(){
-            override fun onCreate(db: SupportSQLiteDatabase){
-                super.onCreate(db)
-                CoroutineScope(Dispatchers.IO).launch{
-                    val database = provideDatabase(context)
-                    database.questionDao().insertAll(QuestionSeed.questions)
-                }
+    @Volatile
+    private var instance: AppDatabase? = null
 
-            }
-        }).build()
+    fun provideDatabase(context: Context): AppDatabase {
+        return instance ?: synchronized(this) {
+            instance ?: Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "questions_database"
+            ).addCallback(object : RoomDatabase.Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        provideDatabase(context).questionDao().insertAll(JsonLoader.loadQuestions(context))
+                    }
+                }
+            }).build().also { instance = it }
+        }
     }
 }

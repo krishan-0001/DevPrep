@@ -12,6 +12,8 @@ import com.example.devprep.screens.HomeScreen
 import com.example.devprep.screens.ProfileScreen
 import com.example.devprep.screens.ProgressScreen
 import com.example.devprep.screens.QuestionScreen
+import com.example.devprep.screens.ResultScreen
+import java.net.URLDecoder
 
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
@@ -33,8 +35,15 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             ProfileScreen()
         }
         composable("${Routes.QUESTIONS}/{category}") { backStackEntry->
-            val category = backStackEntry.arguments?.getString("category") ?: ""
+            val categoryArg = backStackEntry.arguments?.getString("category") ?: ""
+            val category = URLDecoder.decode(categoryArg, "UTF-8")
             QuestionScreen(category = category, navController = navController)
+
+        }
+        composable("results/{score}/{total}") {backStackEntry ->
+            val score = backStackEntry.arguments?.getString("score")?.toInt() ?:0
+            val total = backStackEntry.arguments?.getString("total")?.toInt() ?:0
+            ResultScreen(score,total,navController)
 
         }
     }

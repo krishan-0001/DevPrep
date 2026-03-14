@@ -47,8 +47,13 @@ fun QuestionScreen(category: String, navController: NavHostController) {
                     if (currentIndex < questions.size - 1) {
                         currentIndex++
                     } else {
-                        navController.popBackStack()
+                        navController.navigate("results/${viewModel.score}/${questions.size}"){
+                            popUpTo("questions"){inclusive=true}
+                        }
                     }
+                },
+                onCheckAnswer = { selectedOption, question ->
+                    viewModel.onCheckAnswer(selectedOption, question)
                 })
         }
     }
