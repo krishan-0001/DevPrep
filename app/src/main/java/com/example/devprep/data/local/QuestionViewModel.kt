@@ -18,6 +18,7 @@ class QuestionViewModel(private val dao: QuestionDao,private val context: Contex
     var score by mutableStateOf(0)
         private set
     private val answeredQuestions = mutableSetOf<Int>()
+    val bookmarkedQuestions = dao.getBookmarkedQuestions()
 
     fun loadQuestions(category: String){
         viewModelScope.launch(Dispatchers.IO) {

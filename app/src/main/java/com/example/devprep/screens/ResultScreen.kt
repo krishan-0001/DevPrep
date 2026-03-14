@@ -44,7 +44,6 @@ fun ResultScreen(
                 delay(50)
             }
         }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -113,11 +112,11 @@ fun ResultScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    LinearProgressIndicator(
+                    CircularProgressIndicator(
                         progress = percentage / 100f,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(10.dp)
+                        strokeWidth = 14.dp,
+                        modifier = Modifier.size(140.dp),
+                        color = Color(0xFF4CAF50)
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
