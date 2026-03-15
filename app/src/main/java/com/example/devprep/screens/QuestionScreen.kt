@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.devprep.data.local.AppDatabase
-import com.example.devprep.data.local.QuestionEntity
 import com.example.devprep.data.local.QuestionViewModel
 import com.example.devprep.data.local.QuestionViewModelFactory
 
@@ -24,6 +23,8 @@ fun QuestionScreen(category: String, navController: NavHostController) {
     val viewModel: QuestionViewModel = viewModel(
         factory = QuestionViewModelFactory(
             database.questionDao(),
+            database.quizStatsDao(),
+            database.categoryStatsDao(),
             context
         )
     )
@@ -49,6 +50,7 @@ fun QuestionScreen(category: String, navController: NavHostController) {
                     } else {
                         navController.navigate("results/${viewModel.score}/${questions.size}"){
                             popUpTo("questions"){inclusive=true}
+
                         }
                     }
                 },

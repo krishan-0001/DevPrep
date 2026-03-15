@@ -1,5 +1,11 @@
 package com.example.devprep.screens
 
+import android.R
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,12 +14,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -38,7 +46,8 @@ fun BookMarkScreen(viewModel: QuestionViewModel){
 
     val bookmarkedQuestions by viewModel.bookmarkedQuestions.collectAsState(initial = emptyList())
 
-    Column(modifier = Modifier.fillMaxSize()
+    Column(modifier = Modifier
+        .fillMaxSize()
         .padding(16.dp)) {
         Text(text = "BookMarks",
             fontSize = 28.sp,
@@ -49,7 +58,8 @@ fun BookMarkScreen(viewModel: QuestionViewModel){
                 var showExplanation by remember{
                     mutableStateOf(false)
                 }
-                Card(modifier = Modifier.fillMaxWidth()
+                Card(modifier = Modifier
+                    .fillMaxWidth()
                     .padding(vertical = 10.dp),
                     elevation = CardDefaults.cardElevation(6.dp),
                     shape = RoundedCornerShape(16.dp)) {
@@ -59,32 +69,56 @@ fun BookMarkScreen(viewModel: QuestionViewModel){
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium)
 
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically) {
-                            Button(onClick = {
-                                showExplanation = !showExplanation
-                            }) {
-                                if(showExplanation){
-                                    Text(text = "Hide Explanation")
-                                }
-                                else{
-                                    Text(text = "Show Explanation")
-                                }
-                            }
-                            if(showExplanation){
+                        Spacer(modifier = Modifier.height(20.dp))
+                          Row(modifier = Modifier.fillMaxWidth(),
+                              horizontalArrangement = Arrangement.spacedBy(150.dp),
+                              verticalAlignment = Alignment.CenterVertically) {
+                                  Button(onClick = {
+                                      showExplanation = !showExplanation
+                                  },
+                                      colors = ButtonDefaults.buttonColors(
+                                          containerColor = Color(0xFF5C6BC0)
+                                      )) {
+                                      if(showExplanation){
+                                          Text(text = "Hide Explanation")
+                                      }
+                                      else{
+                                          Text(text = "Show Explanation")
+                                      }
+                                  }
+
+                                  IconButton(onClick = {viewModel.toggleBookmark(question)}) {
+                                      Icon(
+                                          imageVector = Icons.Default.Bookmark,
+                                          contentDescription = "Remove Bookmark"
+                                      )
+                                  }
+                                  Spacer(modifier = Modifier.width(10.dp))
+
+                          }
+                        AnimatedVisibility(
+                            visible = showExplanation,
+                            enter = expandVertically() + fadeIn(),
+                            exit = shrinkVertically() + fadeOut()
+                        ) {
+                            Column(){
                                 Spacer(modifier = Modifier.height(10.dp))
-                                Text(text = question.explanation,
-                                    color = Color.Gray)
-                            }
-                            IconButton(onClick = {viewModel.toggleBookmark(question)}) {
-                                Icon(
-                                    imageVector = Icons.Default.Bookmark,
-                                    contentDescription = "Remove Bookmark"
+
+                                Text(
+                                    text = "Explanation:",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
+                                Spacer(modifier = Modifier.width(15.dp))
+
+                                Text(text = question.explanation,
+                                    color = Color.Gray,
+                                    fontSize = 14.sp)
                             }
+
+
                         }
+
                     }
 
                 }

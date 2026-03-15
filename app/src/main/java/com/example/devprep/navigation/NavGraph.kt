@@ -7,7 +7,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.room.Database
 import com.example.devprep.data.local.AppDatabase
 import com.example.devprep.data.local.QuestionViewModel
 import com.example.devprep.data.local.QuestionViewModelFactory
@@ -21,6 +20,16 @@ import java.net.URLDecoder
 
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
+    val context  = LocalContext.current
+    val database = AppDatabase.getDatabase(context)
+    val viewModel: QuestionViewModel = viewModel(
+        factory = QuestionViewModelFactory(
+            database.questionDao(),
+            database.quizStatsDao(),
+            database.categoryStatsDao(),
+            context
+        )
+    )
     NavHost(
         navController = navController,
         startDestination = Routes.HOME,
@@ -30,15 +39,10 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             HomeScreen(navController)
         }
         composable(Routes.BOOKMARK){
-            val context  = LocalContext.current
-            val database = AppDatabase.getDatabase(context)
-            val viewModel: QuestionViewModel = viewModel(
-                factory = QuestionViewModelFactory(database.questionDao(),context)
-            )
             BookMarkScreen(viewModel)
         }
         composable(Routes.PROGRESS){
-            ProgressScreen()
+            ProgressScreen(navController, viewModel)
         }
         composable(Routes.PROFILE){
             ProfileScreen()
@@ -52,11 +56,8 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         composable("results/{score}/{total}") {backStackEntry ->
             val score = backStackEntry.arguments?.getString("score")?.toInt() ?:0
             val total = backStackEntry.arguments?.getString("total")?.toInt() ?:0
-            ResultScreen(score,total,navController)
+            ResultScreen(score,total,navController,viewModel)
 
         }
     }
-    }
-
-
-
+}

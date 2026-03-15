@@ -6,12 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [QuestionEntity::class],
-    version = 1
+    entities = [QuestionEntity::class,
+               QuizStatsEntity::class,
+               CategoryStatsEntity::class],
+    version = 3
 )
 
 abstract class AppDatabase: RoomDatabase(){
     abstract fun questionDao(): QuestionDao
+    abstract fun quizStatsDao(): QuizStatsDao
+    abstract fun categoryStatsDao(): CategoryStatsDao
+
 
     companion object{
         @Volatile
@@ -22,7 +27,8 @@ abstract class AppDatabase: RoomDatabase(){
                     context.applicationContext,
                     AppDatabase::class.java,
                     "questions_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -14,15 +14,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.devprep.data.local.QuestionViewModel
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Composable
 fun ResultScreen(
-    score: Int, totalQuestions: Int, navController: NavHostController
+    score: Int, totalQuestions: Int, navController: NavHostController,
+    viewModel: QuestionViewModel
+
 ) {
+
+
     val percentage = (score.toFloat() / (totalQuestions * 10)) * 100
+    LaunchedEffect(Unit) {
+        viewModel.updateQuizStats(totalQuestions)
+    }
     val message = when {
         percentage >= 90 -> "Excellent 🚀"
         percentage >= 70 -> "Good Job 👍"
@@ -128,7 +137,7 @@ fun ResultScreen(
                     Spacer(modifier = Modifier.height(40.dp))
 
                     Button(
-                        onClick = { navController.popBackStack() },
+                        onClick = { navController.navigate("home") },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Back to Home", fontSize = 18.sp)

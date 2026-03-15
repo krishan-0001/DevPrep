@@ -18,3 +18,23 @@ data class QuestionEntity(
     val explanation: String
 
 )
+
+@Entity(tableName = "quiz_stats")
+data class QuizStatsEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 1,
+    val quizzesAttempted: Int =1,
+    val totalScore: Int =0,
+    val totalQuestions: Int =0
+)
+
+@Entity(tableName = "category_stats")
+data class CategoryStatsEntity(
+
+    @PrimaryKey
+    val category: String,
+
+    val totalQuestions: Int,
+
+    val correctAnswers: Int
+)
