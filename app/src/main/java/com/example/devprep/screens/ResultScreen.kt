@@ -27,10 +27,16 @@ fun ResultScreen(
 
 ) {
 
-
+    var isUpdated by remember {
+        mutableStateOf(false)
+    }
     val percentage = (score.toFloat() / (totalQuestions * 10)) * 100
     LaunchedEffect(Unit) {
-        viewModel.updateQuizStats(totalQuestions)
+        if(!isUpdated){
+            viewModel.updateQuizStats(totalQuestions,score)
+            isUpdated = true
+        }
+
     }
     val message = when {
         percentage >= 90 -> "Excellent 🚀"

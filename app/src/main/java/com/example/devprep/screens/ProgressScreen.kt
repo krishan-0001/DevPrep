@@ -69,12 +69,12 @@ fun ProgressScreen(navController: NavHostController,
             StatCard("Score",stats?.totalScore.toString() ?: "0")
 
         }
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(text = "Category Performance",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(16.dp))
+        //Spacer(modifier = Modifier.height(16.dp))
 
         viewModel.categoryStats.forEach{stat->
             val progress =

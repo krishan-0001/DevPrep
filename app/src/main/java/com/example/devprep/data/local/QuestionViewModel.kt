@@ -2,12 +2,16 @@ package com.example.devprep.data.local
 
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -76,6 +80,7 @@ class QuestionViewModel(private val dao: QuestionDao,
         if (isCorrect) {
             score += 10
         }
+        //println("ANSWERED: ${question.id}  SCORE: $score")
         answeredQuestions.add(question.id)
         updateCategoryStats(question.category,isCorrect)
     }
@@ -96,8 +101,9 @@ class QuestionViewModel(private val dao: QuestionDao,
         }
     }
 
-    fun updateQuizStats(totalQuestions: Int) {
+    fun updateQuizStats(totalQuestions: Int,score: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            // LOCAL DATABASE(ROOM)
             val stats = quizStatsDao.getStats()
             if(stats==null){
                 quizStatsDao.insertStats(
@@ -120,6 +126,27 @@ class QuestionViewModel(private val dao: QuestionDao,
 
                     )
                     )
+            }
+
+            // FIREBASE DATABASE(FIRESTORE)
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            val db = FirebaseFirestore.getInstance()
+
+            uid?.let{
+                db.collection("users")
+                    .document(it)
+                    .update(mapOf(
+                        "score" to FieldValue.increment(score.toLong()),
+                        "quizzesAttempted" to FieldValue.increment(1),
+                        "totalQuestions" to FieldValue.increment(totalQuestions.toLong())
+                      )
+                    )
+                    .addOnSuccessListener {
+                        Log.d("Firestore", "Stats updated")
+                    }
+                    .addOnFailureListener {
+                        Log.e("Firestore", "Error updating stats: ${it.message}")
+                    }
             }
         }
 

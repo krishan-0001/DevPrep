@@ -14,20 +14,24 @@ import com.example.devprep.data.local.QuestionViewModel
 import com.example.devprep.data.local.QuestionViewModelFactory
 
 @Composable
-fun QuestionScreen(category: String, navController: NavHostController) {
+fun QuestionScreen(
+    category: String,
+    navController: NavHostController,
+    viewModel: QuestionViewModel
+) {
 
-    val context = LocalContext.current
-
-    val database = AppDatabase.getDatabase(context)
-
-    val viewModel: QuestionViewModel = viewModel(
-        factory = QuestionViewModelFactory(
-            database.questionDao(),
-            database.quizStatsDao(),
-            database.categoryStatsDao(),
-            context
-        )
-    )
+//    val context = LocalContext.current
+//
+//    val database = AppDatabase.getDatabase(context)
+//
+//    val viewModel: QuestionViewModel = viewModel(
+//        factory = QuestionViewModelFactory(
+//            database.questionDao(),
+//            database.quizStatsDao(),
+//            database.categoryStatsDao(),
+//            context
+//        )
+//    )
     LaunchedEffect(category) {
         viewModel.loadQuestions(category)
     }
@@ -48,10 +52,12 @@ fun QuestionScreen(category: String, navController: NavHostController) {
                     if (currentIndex < questions.size - 1) {
                         currentIndex++
                     } else {
-                        navController.navigate("results/${viewModel.score}/${questions.size}"){
+                        val finalScore = viewModel.score
+                        viewModel.updateQuizStats(totalQuestions = questions.size, score = finalScore)
+                        navController.navigate("results/${finalScore}/${questions.size}"){
                             popUpTo("questions"){inclusive=true}
-
                         }
+                        viewModel.resetQuiz()
                     }
                 },
                 onCheckAnswer = { selectedOption, question ->

@@ -114,6 +114,7 @@ fun QuestionContent(question: QuestionEntity,
                 Text(text = question.explanation)
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(onClick = onNextClick,
+                    enabled = showResult,
                     modifier = Modifier.fillMaxWidth()) {
                     Text(text = "Next Questions")
                 }

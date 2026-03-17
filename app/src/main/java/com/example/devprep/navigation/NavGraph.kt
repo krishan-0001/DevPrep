@@ -12,10 +12,15 @@ import com.example.devprep.data.local.QuestionViewModel
 import com.example.devprep.data.local.QuestionViewModelFactory
 import com.example.devprep.screens.BookMarkScreen
 import com.example.devprep.screens.HomeScreen
+import com.example.devprep.screens.LeaderBoardScreen
+import com.example.devprep.screens.LoginScreen
 import com.example.devprep.screens.ProfileScreen
 import com.example.devprep.screens.ProgressScreen
 import com.example.devprep.screens.QuestionScreen
 import com.example.devprep.screens.ResultScreen
+import com.example.devprep.screens.SignUpScreen
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import java.net.URLDecoder
 
 @Composable
@@ -30,9 +35,16 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             context
         )
     )
+    val auth = FirebaseAuth.getInstance()
+    val startDestination = if(auth.currentUser!=null){
+        Routes.HOME
+    }
+    else{
+        Routes.LOGIN
+    }
     NavHost(
         navController = navController,
-        startDestination = Routes.HOME,
+        startDestination = startDestination,
         modifier = modifier
     ){
         composable(Routes.HOME){
@@ -45,12 +57,12 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             ProgressScreen(navController, viewModel)
         }
         composable(Routes.PROFILE){
-            ProfileScreen()
+            ProfileScreen(navController)
         }
         composable("${Routes.QUESTIONS}/{category}") { backStackEntry->
             val categoryArg = backStackEntry.arguments?.getString("category") ?: ""
             val category = URLDecoder.decode(categoryArg, "UTF-8")
-            QuestionScreen(category = category, navController = navController)
+            QuestionScreen(category = category, navController = navController,viewModel)
 
         }
         composable("results/{score}/{total}") {backStackEntry ->
@@ -58,6 +70,15 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             val total = backStackEntry.arguments?.getString("total")?.toInt() ?:0
             ResultScreen(score,total,navController,viewModel)
 
+        }
+        composable(Routes.LOGIN) {
+            LoginScreen(navController)
+        }
+        composable(Routes.SIGNUP) {
+            SignUpScreen(navController)
+        }
+        composable(Routes.LEADERBOARD) {
+            LeaderBoardScreen()
         }
     }
 }
