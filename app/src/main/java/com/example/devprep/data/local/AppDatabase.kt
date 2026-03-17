@@ -33,5 +33,8 @@ abstract class AppDatabase: RoomDatabase(){
                 instance
             }
         }
+        fun clearDatabase(){
+            INSTANCE?.clearAllTables()
+        }
     }
 }

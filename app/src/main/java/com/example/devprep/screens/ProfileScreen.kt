@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.devprep.data.local.AppDatabase.Companion.clearDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -136,10 +137,12 @@ fun ProfileScreen(navController: NavHostController){
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
+            clearDatabase()
             auth.signOut()
             navController.navigate("login"){
                 popUpTo("home"){inclusive=true}
             }
+
         },modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(Color.Red)
         ) {
