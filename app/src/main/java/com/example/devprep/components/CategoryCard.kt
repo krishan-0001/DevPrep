@@ -28,8 +28,10 @@ fun CategoryCard(category: Category, onClick: () -> Unit){
         .clickable{ onClick()
         },
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(6.dp)
-    ) {
+        elevation = CardDefaults.cardElevation(10.dp)
+    )
+
+    {
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally)

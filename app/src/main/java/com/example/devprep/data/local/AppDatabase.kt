@@ -33,8 +33,9 @@ abstract class AppDatabase: RoomDatabase(){
                 instance
             }
         }
-        fun clearDatabase(){
-            INSTANCE?.clearAllTables()
+       suspend fun clearDatabase(context: Context){
+           val db = getDatabase(context)
+           db.clearAllTables()
         }
     }
 }

@@ -24,6 +24,12 @@ import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,12 +40,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.devprep.components.CategoryCard
+import com.example.devprep.components.SectionTitle
+import com.example.devprep.components.appBackground
 import com.example.devprep.data.Category
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun HomeHeader(){
     Box(modifier = Modifier.fillMaxWidth()
-        .height(150.dp)
+        .height(160.dp)
         .clip(
             RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp)
         )
@@ -47,8 +58,9 @@ fun HomeHeader(){
             brush = Brush.linearGradient(
                 colors = listOf(Color(0xFF2E7D32),
                     Color(0xFF66BB6A))
-            )
-        ),
+            ))
+       // .appBackground()
+        ,
         contentAlignment = Alignment.TopCenter
     ){
         Column(modifier = Modifier
@@ -58,16 +70,33 @@ fun HomeHeader(){
             Text(text = "DevPrep", fontSize = 38.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold)
+         //   SectionTitle("DevPrep")
             Spacer(modifier = Modifier.height(2.dp))
             Text(text = "Android Interview Master",
                 fontSize = 20.sp,
                 color = Color.White.copy(0.9f))
+          //  SectionTitle("Android Interview Master")
         }
     }
 }
 //@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreen(navController: NavHostController){
+    val user = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
+    var name by remember {
+        mutableStateOf("User")
+    }
+    LaunchedEffect(Unit) {
+        val uid = user.currentUser?.uid
+        uid?.let {
+            db.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener { doc->
+                    name = doc.getString("name") ?: "User"
+                }
+        }
+    }
     val categories = listOf(
         Category("Kotlin",Icons.Default.Code),
         Category("JetPack Compose",Icons.Default.Android),
@@ -78,16 +107,17 @@ fun HomeScreen(navController: NavHostController){
         Category("Android Basics",Icons.Default.PhoneAndroid),
         Category("System Design",Icons.Default.Settings)
     )
-    Column(modifier = Modifier.padding(8.dp)
+    Column(modifier = Modifier.padding(4.dp)
         .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         HomeHeader()
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Hi, Ready to Ace Your Interviews?",
+            Text(text = "Hi $name, Ready to Ace Your Interviews?",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(18.dp))
+          //  SectionTitle("Hi $name, Ready to Ace Your Interviews?")
+            Spacer(modifier = Modifier.height(14.dp))
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(12.dp),

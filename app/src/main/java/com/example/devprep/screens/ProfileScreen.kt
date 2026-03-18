@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,12 +36,17 @@ import coil.compose.AsyncImage
 import com.example.devprep.data.local.AppDatabase.Companion.clearDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun ProfileScreen(navController: NavHostController){
 
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
+    val context = LocalContext.current
 
     var name by remember {
         mutableStateOf("")
@@ -79,10 +85,10 @@ fun ProfileScreen(navController: NavHostController){
         }
     }
     val accuracy = if(totalQuestions>0){
-        (score.toFloat()/totalQuestions.toFloat())*100
+        ((score.toFloat()/totalQuestions.toFloat())*100).toInt()
     }
     else{
-        0f
+        0
     }
 
     Column(modifier = Modifier.fillMaxSize()
@@ -137,10 +143,14 @@ fun ProfileScreen(navController: NavHostController){
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
-            clearDatabase()
-            auth.signOut()
-            navController.navigate("login"){
-                popUpTo("home"){inclusive=true}
+            CoroutineScope(Dispatchers.IO).launch {
+                clearDatabase(context)
+                withContext(Dispatchers.Main){
+                    auth.signOut()
+                    navController.navigate("login"){
+                        popUpTo(0){inclusive = true}
+                    }
+                }
             }
 
         },modifier = Modifier.fillMaxWidth(),

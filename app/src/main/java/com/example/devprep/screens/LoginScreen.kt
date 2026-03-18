@@ -25,15 +25,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
-
+//@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreen(navController: NavHostController) {
     val context = LocalContext.current
@@ -46,56 +48,74 @@ fun LoginScreen(navController: NavHostController) {
     var password by remember{
         mutableStateOf("")
     }
+    var editPassword by remember{
+        mutableStateOf("")
+    }
+
 
     Column(modifier = Modifier.fillMaxSize()
-        .padding(20.dp),
-        verticalArrangement = Arrangement.Center) {
-
-        Text(text = "DevPrep Login",
+        .padding(top = 32.dp),
+        verticalArrangement = Arrangement.spacedBy(200.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "DevPrep",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold)
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Column(modifier = Modifier
+            .padding(20.dp),
+            verticalArrangement = Arrangement.Center) {
 
-        OutlinedTextField(value = email,
-            onValueChange = {email = it},
-            label = { Text("Email")}
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Login", fontSize = 32.sp,
+                fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(18.dp))
+            OutlinedTextField(value = email,
+                onValueChange = {email = it},
+                label = { Text("Email")}
+            )
+            Spacer(modifier = Modifier.height(10.dp))
 
-        OutlinedTextField(value = password,
-            onValueChange = {password = it},
-            label = { Text("Password")},
-            visualTransformation = PasswordVisualTransformation(),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(20.dp))
+            OutlinedTextField(value = password,
+                onValueChange = {password = it},
+                label = { Text("Password")},
+                visualTransformation = PasswordVisualTransformation(),
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    navController.navigate("home"){
-                        popUpTo("login"){inclusive=true}
+            Button(onClick = {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener {
+                        navController.navigate("home"){
+                            popUpTo("login"){inclusive=true}
+                        }
                     }
-                }
-        }, modifier = Modifier.fillMaxWidth()
+            }, modifier = Modifier.fillMaxWidth()
             ) {
-            Text("Login")
+                Text("Login")
+            }
+
+            // Spacer(modifier = Modifier.height(16.dp))
+            TextButton(onClick = {
+                auth.sendPasswordResetEmail(editPassword)
+                    .addOnSuccessListener {
+                        Toast.makeText(context,"Email Sent",Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                    }
+            }) {
+                Text(text = "Forgot Password?")
+            }
+
+            //   Spacer(modifier = Modifier.height(10.dp))
+            TextButton(onClick = {
+                navController.navigate("signup")
+            }) {
+                Text(text = "Don't have an account? Sign Up")
+            }
+
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextButton(onClick = {
-            navController.navigate("signup")
-        }) {
-            Text(text = "Don't have an account? Sign Up")
-        }
-
-
-
-
-
-
     }
+
 }

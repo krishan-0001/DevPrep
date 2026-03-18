@@ -54,10 +54,10 @@ fun QuestionScreen(
                     } else {
                         val finalScore = viewModel.score
                         viewModel.updateQuizStats(totalQuestions = questions.size, score = finalScore)
+                        viewModel.resetQuiz()
                         navController.navigate("results/${finalScore}/${questions.size}"){
                             popUpTo("questions"){inclusive=true}
                         }
-                        viewModel.resetQuiz()
                     }
                 },
                 onCheckAnswer = { selectedOption, question ->
