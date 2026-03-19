@@ -5,10 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -50,7 +53,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 @Composable
 fun HomeHeader(){
     Box(modifier = Modifier.fillMaxWidth()
-        .height(160.dp)
+        .height(180.dp)
+        .padding(bottom =12.dp)
         .clip(
             RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp)
         )
@@ -107,12 +111,13 @@ fun HomeScreen(navController: NavHostController){
         Category("Android Basics",Icons.Default.PhoneAndroid),
         Category("System Design",Icons.Default.Settings)
     )
-    Column(modifier = Modifier.padding(4.dp)
+    Column(modifier = Modifier.padding(4.dp, bottom = 8.dp)
+      //  .padding(WindowInsets.safeDrawing.asPaddingValues())
         .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         HomeHeader()
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(16.dp,bottom = 16.dp)) {
             Text(text = "Hi $name, Ready to Ace Your Interviews?",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold)

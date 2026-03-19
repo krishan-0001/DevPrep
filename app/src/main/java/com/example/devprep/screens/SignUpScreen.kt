@@ -2,8 +2,11 @@ package com.example.devprep.screens
 
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.compose.R
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +19,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Password
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -27,7 +41,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -45,8 +62,11 @@ fun SignUpScreen(navController: NavHostController) {
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
+    val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("") }
     var imageUrl by remember {
         mutableStateOf<Uri?>(null)
@@ -57,147 +77,187 @@ fun SignUpScreen(navController: NavHostController) {
         imageUrl = uri
 
     }
-
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Create Account",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(30.dp))
-        Box(
-            modifier = Modifier.size(100.dp)
-                .background(Color.Gray, shape = CircleShape)
-                .clickable {
-                    launcher.launch("image/*")
-                },
-            contentAlignment = Alignment.Center
-        ) {
-            if (imageUrl != null) {
-                AsyncImage(
-                    model = imageUrl,
-                    contentDescription = "Profile Image",
-                    modifier = Modifier.fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF2E7D32),
+                        Color(0xFF66BB6A)
+                    )
                 )
-            } else {
-                Text(
-                    text = "Add Photo",
-                    color = Color.White
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(10.dp))
+            )
+    ){
 
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Full Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Spacer(modifier = Modifier.height(40.dp))
 
-        Spacer(Modifier.height(12.dp))
+            Image(
+                painter = painterResource(id = com.example.devprep.R.drawable.login_icon),
+                contentDescription = "Signup Image",
+                modifier = Modifier.size(160.dp)
+            )
 
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = "Create Account 🚀",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Card(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(8.dp)
+            ){
+                Column(modifier = Modifier.padding(20.dp)){
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        leadingIcon = {
+                            Icon(Icons.Default.Person, contentDescription = "Person")
+                        },
+                        label = { Text("Full Name") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
 
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
+                    Spacer(modifier = Modifier.height(12.dp))
 
-        Spacer(Modifier.height(12.dp))
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        leadingIcon = {
+                            Icon(Icons.Default.Email, contentDescription = "Email Icon")
+                        },
+                        label = { Text("Email") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
 
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(Modifier.height(20.dp))
-
-        Button(
-            onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener { result ->
-                            val user = result.user
-                            val uid = user?.uid ?: return@addOnSuccessListener
-                            if (imageUrl != null) {
-                                val storageRef = FirebaseStorage.getInstance().reference
-                                    .child("profile_images/$uid.jpg")
-                                storageRef.putFile(imageUrl!!)
-                                    .continueWithTask {
-                                        storageRef.downloadUrl
-                                    }
-                                    .addOnSuccessListener { downloadUrl ->
-                                        val userMap = hashMapOf(
-                                            "uid" to uid,
-                                            "name" to name,
-                                            "email" to email,
-                                            "score" to 0,
-                                            "quizzesAttempted" to 0,
-                                            "totalQuestions" to 0,
-                                            "createdAt" to FieldValue.serverTimestamp(),
-                                            "profileImage" to downloadUrl.toString()
-                                        )
-                                        db.collection("users")
-                                            .document(uid)
-                                            .set(userMap)
-                                            .addOnSuccessListener {
-                                                navController.navigate("home") {
-                                                    popUpTo("signup") { inclusive = true }
-                                                }
-                                            }
-
-                                    }
-
-                            } else {
-                                val userMap = hashMapOf(
-                                    "uid" to uid,
-                                    "name" to name,
-                                    "email" to user.email,
-                                    "profileImage" to "",
-                                    "score" to 0,
-                                    "quizzesAttempted" to 0,
-                                    "totalQuestions" to 0,
-                                    "createdAt" to FieldValue.serverTimestamp()
-                                )
-                                db.collection("users")
-                                    .document(uid)
-                                    .set(userMap)
-                                    .addOnSuccessListener {
-                                        navController.navigate("home") {
-                                            popUpTo("signup") { inclusive = true }
-                                        }
-                                    }
+                    OutlinedTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        leadingIcon = {
+                            Icon(Icons.Default.Password, contentDescription = "Email Icon")
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = {passwordVisible = !passwordVisible}) {
+                                if(passwordVisible){
+                                    Icon(Icons.Default.Visibility, contentDescription = "Visible")
+                                }
+                                else{
+                                    Icon(Icons.Default.VisibilityOff, contentDescription = "Invisible")
+                                }
                             }
+                        },
+                        label = { Text("Password") },
+                        visualTransformation = PasswordVisualTransformation(),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedTextField(
+                        value = confirmPassword,
+                        onValueChange = { confirmPassword = it },
+                        leadingIcon = {
+                            Icon(Icons.Default.Password, contentDescription = "Email Icon")
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = {passwordVisible = !passwordVisible}) {
+                                if(passwordVisible){
+                                    Icon(Icons.Default.Visibility, contentDescription = "Visible")
+                                }
+                                else{
+                                    Icon(Icons.Default.VisibilityOff, contentDescription = "Invisible")
+                                }
+                            }
+                        },
+                        label = { Text("Confirm Password") },
+                        visualTransformation = PasswordVisualTransformation(),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(onClick = {
+                        if(name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+                            Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                            return@Button
                         }
-                        .addOnFailureListener { e ->
-                            Log.e("Firebase", "Auth Error: ${e.message}")
+                        if(password!=confirmPassword){
+                            Toast.makeText(context,"Passwords do not match",Toast.LENGTH_SHORT).show()
+                            return@Button
                         }
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnSuccessListener { result ->
+                                val user = result.user
+                                val uid = user?.uid ?: return@addOnSuccessListener
+                                if (imageUrl != null) {
+                                    val storageRef = FirebaseStorage.getInstance().reference
+                                        .child("profile_images/$uid.jpg")
+                                    storageRef.putFile(imageUrl!!)
+                                        .continueWithTask {
+                                            storageRef.downloadUrl
+                                        }
+                                        .addOnSuccessListener { downloadUrl ->
+                                            val userMap = hashMapOf(
+                                                "uid" to uid,
+                                                "name" to name,
+                                                "email" to email,
+                                                "score" to 0,
+                                                "quizzesAttempted" to 0,
+                                                "totalQuestions" to 0,
+                                                "createdAt" to FieldValue.serverTimestamp(),
+                                                "profileImage" to downloadUrl.toString()
+                                            )
+                                            db.collection("users")
+                                                .document(uid)
+                                                .set(userMap)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(context,"Account created successfully",Toast.LENGTH_SHORT).show()
+                                                    Log.d("Firebase", "User created successfully")
+                                                    navController.navigate("home") {
+                                                        popUpTo("signup") { inclusive = true }
+                                                    }
+                                                }
+
+                                        }
+
+                                }
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                            }
+
+                    },modifier = Modifier.fillMaxWidth()
+                        .height(50.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(text = "Sign Up")
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = "Already have an account? Login",
+                        modifier = Modifier.clickable {
+                            navController.navigate("login")
+                        },
+                        color = Color.Gray
+                    )
                 }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Sign Up")
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        TextButton(
-            onClick = {
-                navController.navigate("login")
             }
-        ) {
-            Text("Already have an account? Login")
+
         }
     }
+
 }
