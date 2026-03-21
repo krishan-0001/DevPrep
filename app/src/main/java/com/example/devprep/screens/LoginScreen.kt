@@ -148,6 +148,17 @@ fun LoginScreen(navController: NavHostController) {
                     Button(
                         onClick = {
                             // your login logic
+                            if(email.isEmpty() || password.isEmpty()){
+                                Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                                return@Button
+                            }
+                            auth.signInWithEmailAndPassword(email,password)
+                                .addOnSuccessListener {
+                                    navController.navigate("home"){
+                                        popUpTo("login"){inclusive=true}
+                                    }
+                                }
+
                         },
                         modifier = Modifier
                             .fillMaxWidth()

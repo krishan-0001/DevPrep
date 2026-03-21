@@ -24,12 +24,39 @@ class QuestionViewModel(private val dao: QuestionDao,
         private set
     var score by mutableStateOf(0)
         private set
-    private val answeredQuestions = mutableSetOf<Int>()
+    var currentQuizScore by mutableStateOf(0)
+        private set
+  //  private val answeredQuestions = mutableSetOf<Int>()
     var quizStats by mutableStateOf<QuizStatsEntity?>(null)
         private set
     val bookmarkedQuestions = dao.getBookmarkedQuestions()
     var categoryStats by mutableStateOf<List<CategoryStatsEntity>>(emptyList())
         private set
+    var attemptedCount by mutableStateOf(0)
+        private set
+
+    init {
+        loadScore()
+        loadAttemptedCount()
+    }
+
+    fun loadScore(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = dao.getScore()
+            withContext(Dispatchers.Main){
+                score = result * 10
+            }
+        }
+    }
+
+    fun loadAttemptedCount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val count = dao.getAttemptedCount()
+            withContext(Dispatchers.Main) {
+                attemptedCount = count
+            }
+        }
+    }
     fun loadCategoryStats(){
         viewModelScope.launch(Dispatchers.IO) {
             categoryStats = categoryStatsDao.getAllStats()
@@ -73,16 +100,32 @@ class QuestionViewModel(private val dao: QuestionDao,
     }
 
     fun onCheckAnswer(selectedOption: Int, question: QuestionEntity) {
-        if (answeredQuestions.contains(question.id)) {
-            return
+
+        
+        // Mark as attempted in DB
+        viewModelScope.launch(Dispatchers.IO) {
+            val alreadyAttempted = dao.isQuestionAttempted(question.id)
+
+            if(alreadyAttempted){
+                return@launch
+            }
+//            if (answeredQuestions.contains(question.id)) {
+//                return@launch
+//            }
+            val isCorrect = selectedOption == question.correctAnswer
+            if (isCorrect) {
+                currentQuizScore += 10
+            }
+            //println("ANSWERED: ${question.id}  SCORE: $score")
+           // answeredQuestions.add(question.id)
+            updateCategoryStats(question.category,isCorrect)
+            dao.updateAnswer(question.id,isCorrect)
+            val dbScore = dao.getScore()
+            Log.d("CHECK", "Selected: $selectedOption Correct: ${question.correctAnswer}")
+            Log.d("DB_CHECK", "Score in DB: $dbScore")
+            loadAttemptedCount()
+            loadScore()
         }
-        val isCorrect = selectedOption == question.correctAnswer
-        if (isCorrect) {
-            score += 10
-        }
-        //println("ANSWERED: ${question.id}  SCORE: $score")
-        answeredQuestions.add(question.id)
-        updateCategoryStats(question.category,isCorrect)
     }
 
     fun toggleBookmark(question: QuestionEntity) {
@@ -180,8 +223,8 @@ class QuestionViewModel(private val dao: QuestionDao,
     }
 
     fun resetQuiz(){
-        score =0
-        answeredQuestions.clear()
+        currentQuizScore =0
+        //answeredQuestions.clear()
     }
 
 

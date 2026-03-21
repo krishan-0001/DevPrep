@@ -20,8 +20,6 @@ import com.example.devprep.screens.QuestionScreen
 import com.example.devprep.screens.ResultScreen
 import com.example.devprep.screens.SignUpScreen
 import com.example.devprep.screens.SplashScreen
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import java.net.URLDecoder
 
 @Composable
@@ -36,13 +34,7 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             context
         )
     )
-//    val auth = FirebaseAuth.getInstance()
-//    val startDestination = if(auth.currentUser!=null){
-//        Routes.HOME
-//    }
-//    else{
-//        Routes.LOGIN
-//    }
+
     val startDestination = Routes.SPLASH
     NavHost(
         navController = navController,
@@ -50,7 +42,7 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         modifier = modifier
     ){
         composable(Routes.HOME){
-            HomeScreen(navController)
+            HomeScreen(navController, viewModel)
         }
         composable(Routes.BOOKMARK){
             BookMarkScreen(viewModel)

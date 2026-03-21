@@ -10,6 +10,8 @@ data class QuestionEntity(
     val category: String,
     val question: String,
     val isBookmarked: Boolean = false,
+    val isAttempted: Boolean = false,
+    val isCorrect: Boolean = false,
     val option1: String,
     val option2: String,
     val option3: String,

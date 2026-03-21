@@ -22,12 +22,12 @@ import kotlin.random.Random
 
 @Composable
 fun ResultScreen(
-    score: Int, totalQuestions: Int, navController: NavHostController,
+    currentQuizScore: Int, totalQuestions: Int, navController: NavHostController,
     viewModel: QuestionViewModel
 
 ) {
 
-    val percentage = (score.toFloat() / (totalQuestions * 10)) * 100
+    val percentage = (currentQuizScore.toFloat() / (totalQuestions * 10)) * 100
 
     val message = when {
         percentage >= 90 -> "Excellent 🚀"
@@ -44,8 +44,8 @@ fun ResultScreen(
     ) {
 
         var animatedScore by remember { mutableStateOf(0) }
-        LaunchedEffect(score) {
-            for (i in 0..score) {
+        LaunchedEffect(currentQuizScore) {
+            for (i in 0..currentQuizScore) {
                 animatedScore = i
                 delay(50)
             }
