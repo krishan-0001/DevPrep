@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.devprep"
+    namespace = "com.krish.devprep"
     compileSdk = 36
 
 
     defaultConfig {
-        applicationId = "com.example.devprep"
+        applicationId = "com.krish.devprep"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
