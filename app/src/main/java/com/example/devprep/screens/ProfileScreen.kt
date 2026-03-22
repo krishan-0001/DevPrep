@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +49,6 @@ fun ProfileScreen(navController: NavHostController){
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
     val context = LocalContext.current
-
     var name by remember {
         mutableStateOf("")
     }
@@ -65,6 +66,9 @@ fun ProfileScreen(navController: NavHostController){
     }
     var profileImageUrl by remember {
         mutableStateOf("")
+    }
+    var showDialog by remember{
+        mutableStateOf(false)
     }
 
     LaunchedEffect(Unit) {
@@ -91,84 +95,156 @@ fun ProfileScreen(navController: NavHostController){
         0
     }
 
-    Column(modifier = Modifier.fillMaxSize()
-        .background(Color(0xFF0D47A1))
-        .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Profile",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White)
-        Spacer(modifier = Modifier.height(10.dp))
-        AsyncImage(
-            model = if(profileImageUrl.isNotEmpty()) profileImageUrl else null,
-            contentDescription = "Profile Image",
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-                .background(Color.Gray)
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Name: $name", fontSize = 18.sp,
-            color = Color.White)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Email: $email", fontSize = 18.sp,
-            color = Color.White)
+    Box(modifier = Modifier.fillMaxSize()
+        .background(
+            brush = Brush.verticalGradient(
+                colors = listOf(
+                    Color(0xFF1B5E20),
+                    Color(0xFF4CAF50)
+                )
+            )
+        )) {
+        Column(modifier = Modifier.fillMaxSize()
+            .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Spacer(modifier = Modifier.height(20.dp))
+            Text(text = "Profile",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White)
+            Spacer(modifier = Modifier.height(10.dp))
+            AsyncImage(
+                model = if(profileImageUrl.isNotEmpty()) profileImageUrl else null,
+                contentDescription = "Profile Image",
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .background(Color.Gray)
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(text = "Name: $name", fontSize = 18.sp,
+                color = Color.White)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Email: $email", fontSize = 18.sp,
+                color = Color.White)
 
-        Card(modifier = Modifier.fillMaxWidth()
-            .padding(16.dp),
-            colors = CardDefaults.cardColors(Color.White)){
-            Column(modifier = Modifier.padding(16.dp)) {
+            Spacer(modifier = Modifier.height(20.dp))
 
-                Text(text = "Your Stats", fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(text = "Total Score: $score", fontSize = 18.sp)
-             //   Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Quizzes Attempted: $quizzes", fontSize = 18.sp)
-               // Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Total Questions: $totalQuestions", fontSize = 18.sp)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Accuracy: $accuracy%", fontSize = 18.sp)
-                LinearProgressIndicator(
-                    progress = accuracy/100f,
-                    modifier = Modifier.fillMaxWidth()
-                        .height(8.dp))
+            Card(modifier = Modifier.fillMaxWidth()
+                .padding(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFF263238).copy(0.95f)),
+                elevation = CardDefaults.cardElevation(8.dp)
+            ){
+                Column(modifier = Modifier.padding(16.dp)) {
 
-
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Button(onClick = {
-            CoroutineScope(Dispatchers.IO).launch {
-                clearDatabase(context)
-                withContext(Dispatchers.Main){
-                    auth.signOut()
-                    navController.navigate("login"){
-                        popUpTo(0){inclusive = true}
-                    }
+                    Text(text = "Your Stats", fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White)
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(text = "Total Score: $score", fontSize = 18.sp,
+                        color = Color.White)
+                    Text(text = "Quizzes Attempted: $quizzes", fontSize = 18.sp,
+                        color = Color.White)
+                    Text(text = "Total Questions: $totalQuestions", fontSize = 18.sp,
+                        color = Color.White)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Accuracy: $accuracy%", fontSize = 18.sp,
+                        color = Color.White)
+                    LinearProgressIndicator(
+                        progress = accuracy/100f,
+                        modifier = Modifier.fillMaxWidth()
+                            .height(8.dp),
+                        color = Color(0xFF81C784)
+                        )
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
 
-        },modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color.Red)
-        ) {
-            Text(text = "Logout",
-                fontSize = 18.sp)
-        }
-        Spacer(modifier = Modifier.height(30.dp))
+            Button(onClick = {showDialog=true},
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFF9800)
+                )
+            ) {
+                Text(text = "Reset Progress")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
 
-        TextButton(onClick = {
-            navController.navigate("leaderboard")
-        }) {
-            Text(text = "Leaderboard",
-                fontSize = 28.sp,
-                color = Color.White)
+            Button(onClick = {
+                CoroutineScope(Dispatchers.IO).launch {
+                    clearDatabase(context)
+                    withContext(Dispatchers.Main){
+                        auth.signOut()
+                        navController.navigate("login"){
+                            popUpTo(0){inclusive = true}
+                        }
+                    }
+                }
+
+            },modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color.Red)
+            ) {
+                Text(text = "Logout",
+                    fontSize = 18.sp)
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            TextButton(onClick = {
+                navController.navigate("leaderboard")
+            }) {
+                Text(text = "Leaderboard",
+                    fontSize = 18.sp,
+                    color = Color.White)
+            }
         }
+        if(showDialog){
+            AlertDialog(
+                onDismissRequest = {showDialog = false},
+                confirmButton = {
+                    TextButton(onClick = {showDialog = false
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val uid = auth.currentUser?.uid
+                            uid?.let {
+                                db.collection("users")
+                                    .document(it)
+                                    .update(
+                                        mapOf(
+                                            "score" to 0,
+                                            "quizzesAttempted" to 0,
+                                            "totalQuestions" to 0
+                                        )
+                                    )
+                            }
+                            clearDatabase(context)
+                            withContext(Dispatchers.Main){
+                                score = 0
+                                quizzes = 0
+                                totalQuestions = 0
+                            }
+                        }
+
+                    }) {
+                        Text(text = "Yes, Reset")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {showDialog = false
+                    }) {
+                        Text(text = "Cancel")
+                    }
+                },
+                title = {
+                    Text(text = "Reset Progress",)
+                },
+                text = {
+                    Text(text = "Are you sure you want to reset your progress?")
+                }
+            )
+        }
+
     }
+
 
 
 }

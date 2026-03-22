@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
@@ -53,8 +54,11 @@ fun QuestionContent(question: QuestionEntity,
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically) {
+
             Text(text = "Question $questionNumber / $totalQuestions",
-                style = MaterialTheme.typography.titleMedium, fontSize = 22.sp)
+                style = MaterialTheme.typography.titleMedium, fontSize = 22.sp,
+                color = Color.White)
+
             IconButton(onClick = onBookmarkClick, modifier = Modifier.size(70.dp)) {
                 Icon(
                     imageVector = if(question.isBookmarked){
@@ -62,17 +66,22 @@ fun QuestionContent(question: QuestionEntity,
                     }else{
                         Icons.Default.BookmarkBorder
                     },
-                    contentDescription = "Bookmark")
+                    contentDescription = "Bookmark",
+                    tint =  Color(0xFF4CAF50)
+                )
                     }
             }
         Spacer(modifier = Modifier.height(10.dp))
         LinearProgressIndicator(
             progress = questionNumber.toFloat() / totalQuestions.toFloat(),
             modifier = Modifier.fillMaxWidth()
-                .height(8.dp)
+                .height(8.dp),
+            color = Color(0xFF4CAF50)
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         Card(modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFE3F2FD)
             ),
@@ -80,46 +89,53 @@ fun QuestionContent(question: QuestionEntity,
                 defaultElevation = 8.dp
             )
         ) {
-            Text(
-                text = question.question,
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.titleLarge
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-
-            OptionItem("A. ${question.option1}", 1, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 1 }
-            OptionItem("B. ${question.option2}", 2, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 2 }
-            OptionItem("C. ${question.option3}", 3, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 3 }
-            OptionItem("D. ${question.option4}", 4, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 4 }
-            Spacer(modifier = Modifier.height(20.dp))
-           Button(
-                onClick = {
-                    onCheckAnswer(selectedOption, question)
-                    showResult = true
-                },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = selectedOption != -1
-            ) {
-                Text(text = "Check Answer")
-            }
-            if(showResult){
-                Spacer(modifier = Modifier.height(16.dp))
-                if(selectedOption==question.correctAnswer){
-                    Text("Correct Answer ✅", color = Color(0xFF2E7D32))
-                }
-                else{
-                    Text("Wrong Answer ❌", color = Color.Red)
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(text = question.explanation)
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = question.question,
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                OptionItem("A. ${question.option1}", 1, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 1 }
+                OptionItem("B. ${question.option2}", 2, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 2 }
+                OptionItem("C. ${question.option3}", 3, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 3 }
+                OptionItem("D. ${question.option4}", 4, selectedOption=selectedOption, correctAnswer = question.correctAnswer,showResult=showResult) { selectedOption = 4 }
                 Spacer(modifier = Modifier.height(20.dp))
-                Button(onClick = onNextClick,
-                    enabled = showResult,
-                    modifier = Modifier.fillMaxWidth()) {
-                    Text(text = "Next Questions")
+                Button(
+                    onClick = {
+                        onCheckAnswer(selectedOption, question)
+                        showResult = true
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = selectedOption != -1
+                ) {
+                    Text(text = "Check Answer")
+                }
+                if(showResult){
+                    Spacer(modifier = Modifier.height(16.dp))
+                    if(selectedOption==question.correctAnswer){
+                        Text("Correct Answer ✅",  color = Color(0xFF81C784))
+                    }
+                    else{
+                        Text("Wrong Answer ❌", color = Color(0xFFEF5350))
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(text = question.explanation,
+                        color = Color.Black,
+                        fontSize = 18.sp)
+
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Button(onClick = onNextClick,
+                        enabled = showResult,
+                        modifier = Modifier.fillMaxWidth()) {
+                        Text(text = "Next Questions")
+                    }
                 }
             }
+
         }
+
         }
     }
 

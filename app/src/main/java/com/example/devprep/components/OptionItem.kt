@@ -21,25 +21,29 @@ fun OptionItem(text: String,
                onClick: () -> Unit){
 
     val backgroundColor = when{
+        showResult && optionNumber==correctAnswer ->
+            Color(0xFF2E7D32)
+        showResult && optionNumber==selectedOption && selectedOption != correctAnswer ->
+            Color(0xFFC62828)
         !showResult && selectedOption==optionNumber ->
-            Color(0xFFBBDEFB)
-        showResult && selectedOption==optionNumber ->
-            Color(0xFFC8E6C9)
-        showResult && selectedOption == optionNumber && selectedOption != correctAnswer ->
-            Color(0xFFFFCDD2)
+            Color(0xFF4CAF50)
+
         else->
-            Color.White
+            Color(0xFF263238)
     }
 
 
     Card(modifier = Modifier.fillMaxWidth()
         .padding(vertical = 6.dp)
-        .clickable{onClick()},
+        .clickable(enabled = !showResult){onClick()},
         colors = CardDefaults.cardColors(
             containerColor = backgroundColor
-        )) {
+        ),
+        elevation = CardDefaults.cardElevation(6.dp)
+    ) {
         Text(text = text, modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.bodyLarge)
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.White)
     }
 
     }
