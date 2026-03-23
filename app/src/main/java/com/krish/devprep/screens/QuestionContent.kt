@@ -68,6 +68,9 @@ fun QuestionContent(question: QuestionEntity,
     var soundId by remember{
         mutableStateOf(0)
     }
+    var streamId by remember{
+        mutableStateOf(0)
+    }
     val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition(label = "timer")
     val animatedColor by infiniteTransition.animateColor(
@@ -90,7 +93,7 @@ fun QuestionContent(question: QuestionEntity,
             while(timeLeft>0 && !showResult){
                 if (showResult) break
                 if(timeLeft in 1..5){
-                    soundPool.play(soundId,1f,1f,0,0,1f)
+                   streamId = soundPool.play(soundId,1f,1f,0,0,1f)
                 }
                 delay(1000)
                 timeLeft--
@@ -105,6 +108,7 @@ fun QuestionContent(question: QuestionEntity,
     // Auto Next After 2 sec
     LaunchedEffect(showResult) {
         if (showResult && timeLeft == 0) {
+            soundPool.stop(streamId)
             delay(2000)
             onNextClick()
         }

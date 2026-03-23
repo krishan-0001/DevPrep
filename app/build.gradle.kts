@@ -72,4 +72,5 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
 
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 }

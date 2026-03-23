@@ -41,16 +41,22 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.krish.devprep.R
+import com.krish.devprep.data.local.AuthViewModel
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -64,15 +70,42 @@ fun SignUpScreen(navController: NavHostController) {
     var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("") }
-//    var imageUrl by remember {
-//        mutableStateOf<Uri?>(null)
-//    }
-//    val launcher = rememberLauncherForActivityResult(
-//        contract = ActivityResultContracts.GetContent()
-//    ) { uri ->
-//        imageUrl = uri
-//
-//    }
+
+    val viewModel = remember{
+        AuthViewModel()
+    }
+    val clientId = stringResource(id = R.string.default_web_client_id)
+    val googleSignInClient = remember{
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(clientId)
+            .requestEmail()
+            .build()
+        GoogleSignIn.getClient(context,gso)
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            viewModel.firebaseAuthWithGoogle(account.idToken!!) { success ->
+                if (success) {
+                    Log.d("Login", "Google Sign-In Success")
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                } else {
+                    Log.d("Login", "Google Sign-In Failed")
+                }
+
+            }
+        } catch (e: Exception) {
+            Log.e("GoogleSignIn", "Error", e)
+
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -241,6 +274,15 @@ fun SignUpScreen(navController: NavHostController) {
                             navController.navigate("login")
                         },
                         color = Color.Gray
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(text = "Sign in with Google",
+                        modifier = Modifier.fillMaxWidth()
+                            .clickable{
+                                launcher.launch(googleSignInClient.signInIntent)
+                            },
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }

@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.krish.devprep.data.local.AppDatabase.Companion.clearDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,6 +52,10 @@ fun ProfileScreen(navController: NavHostController){
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
     val context = LocalContext.current
+    val googleSignInClient = GoogleSignIn.getClient(
+        context,
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+    )
     var name by remember {
         mutableStateOf("")
     }
@@ -176,6 +183,7 @@ fun ProfileScreen(navController: NavHostController){
                     clearDatabase(context)
                     withContext(Dispatchers.Main){
                         auth.signOut()
+                        googleSignInClient.signOut()
                         navController.navigate("login"){
                             popUpTo(0){inclusive = true}
                         }

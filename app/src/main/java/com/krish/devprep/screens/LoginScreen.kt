@@ -1,6 +1,9 @@
 package com.krish.devprep.screens
 
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,11 +28,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,12 +46,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.krish.devprep.R
+import com.krish.devprep.data.local.AuthViewModel
+import androidx.compose.ui.res.stringResource
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
+
 //@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreen(navController: NavHostController) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val auth = FirebaseAuth.getInstance()
 
     var email by remember{
@@ -57,11 +66,42 @@ fun LoginScreen(navController: NavHostController) {
     var password by remember{
         mutableStateOf("")
     }
-    var editPassword by remember{
-        mutableStateOf("")
-    }
     var passwordVisible by remember {
         mutableStateOf(false)
+    }
+    val viewModel = remember{
+        AuthViewModel()
+    }
+    val clientId = stringResource(id = R.string.default_web_client_id)
+    val googleSignInClient = remember{
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(clientId)
+            .requestEmail()
+            .build()
+        GoogleSignIn.getClient(context,gso)
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            viewModel.firebaseAuthWithGoogle(account.idToken!!) { success ->
+                if (success) {
+                    Log.d("Login", "Google Sign-In Success")
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                } else {
+                    Log.d("Login", "Google Sign-In Failed")
+                }
+
+            }
+        } catch (e: Exception) {
+            Log.e("GoogleSignIn", "Error", e)
+
+        }
     }
 
 
@@ -81,7 +121,7 @@ fun LoginScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(40.dp))
             Image(
-                painter = painterResource(id = com.krish.devprep.R.drawable.login_icon),
+                painter = painterResource(id = R.drawable.login_icon),
                 contentDescription = "Login Image",
                 modifier = Modifier.size(180.dp)
             )
@@ -186,7 +226,15 @@ fun LoginScreen(navController: NavHostController) {
                         },
                         color = Color.Gray
                     )
-
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(text = "Sign in with Google",
+                        modifier = Modifier.fillMaxWidth()
+                            .clickable{
+                                launcher.launch(googleSignInClient.signInIntent)
+                            },
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
 
