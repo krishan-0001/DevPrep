@@ -25,7 +25,11 @@ fun ResultScreen(
     viewModel: QuestionViewModel
 
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.resetQuiz()
+    }
 
+    //val currentQuizScore = viewModel.currentQuizScore
     val percentage = (currentQuizScore.toFloat() / (totalQuestions * 10)) * 100
 
     val message = when {

@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.krish.devprep.data.local.QuestionViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun QuestionScreen(
@@ -52,13 +53,20 @@ fun QuestionScreen(
                 }, onNextClick = {
                     if (currentIndex < questions.size - 1) {
                         currentIndex++
-                    } else {
-                        val finalScore = viewModel.currentQuizScore
-                        viewModel.updateQuizStats(totalQuestions = questions.size, score = finalScore)
-                        viewModel.resetQuiz()
-                        navController.navigate("results/${finalScore}/${questions.size}"){
-                            popUpTo("questions"){inclusive=true}
-                        }
+                    }
+                    else {
+                            val finalScore = viewModel.currentQuizScore
+                            viewModel.updateQuizStats(
+                                totalQuestions = questions.size,score = finalScore)
+                        viewModel.loadScore()
+                        viewModel.loadAttemptedCount()
+                        viewModel.loadStats()
+                        viewModel.loadCategoryStats()
+
+                            navController.navigate("results/${finalScore}/${questions.size}"){
+                                popUpTo("questions"){inclusive=true}
+                            }
+
                     }
                 },
                 onCheckAnswer = { selectedOption, question ->

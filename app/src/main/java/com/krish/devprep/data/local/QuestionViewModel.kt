@@ -101,7 +101,11 @@ class QuestionViewModel(private val dao: QuestionDao,
 
     fun onCheckAnswer(selectedOption: Int, question: QuestionEntity) {
 
-        
+        val isCorrect = selectedOption == question.correctAnswer
+        if (isCorrect) {
+                currentQuizScore += 10
+
+        }
         // Mark as attempted in DB
         viewModelScope.launch(Dispatchers.IO) {
             val alreadyAttempted = dao.isQuestionAttempted(question.id)
@@ -109,15 +113,6 @@ class QuestionViewModel(private val dao: QuestionDao,
             if(alreadyAttempted){
                 return@launch
             }
-//            if (answeredQuestions.contains(question.id)) {
-//                return@launch
-//            }
-            val isCorrect = selectedOption == question.correctAnswer
-            if (isCorrect) {
-                currentQuizScore += 10
-            }
-            //println("ANSWERED: ${question.id}  SCORE: $score")
-           // answeredQuestions.add(question.id)
             updateCategoryStats(question.category,isCorrect)
             dao.updateAnswer(question.id,isCorrect)
             val dbScore = dao.getScore()

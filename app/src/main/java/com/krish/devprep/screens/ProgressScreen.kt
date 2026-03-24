@@ -42,10 +42,14 @@ import com.krish.devprep.data.local.QuestionViewModel
 @Composable
 fun ProgressScreen(navController: NavHostController,
                    viewModel: QuestionViewModel){
+
     LaunchedEffect(Unit) {
+        viewModel.loadScore()
+        viewModel.loadAttemptedCount()
         viewModel.loadStats()
         viewModel.loadCategoryStats()
     }
+
     val stats = viewModel.quizStats
     val percentage =
         stats?.let {
@@ -145,12 +149,6 @@ fun AnimatedProgressRing(percentage: Float){
 @Composable
 fun StatCard(title: String, value: String){
 
-//    val icon = when (title) {
-//        "Quizzes" -> Icons.Default.Assessment
-//        "Questions" -> Icons.Default.HelpOutline
-//        "Score" -> Icons.Default.Star
-//        else -> Icons.Default.Star
-//    }
     val icon = when (title) {
         "Quizzes" -> Icons.Default.Assessment
         "Questions" -> Icons.Default.HelpOutline

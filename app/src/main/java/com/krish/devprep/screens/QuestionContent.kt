@@ -46,10 +46,10 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun QuestionContent(question: QuestionEntity,
-                   questionNumber: Int,
-                   totalQuestions: Int,
-                   onBookmarkClick: () -> Unit,
-                   onNextClick: () -> Unit,
+                    questionNumber: Int,
+                    totalQuestions: Int,
+                    onBookmarkClick: () -> Unit,
+                    onNextClick: () -> Unit,
                     onCheckAnswer: (Int, QuestionEntity) -> Unit){
     var selectedOption by remember(question.id) {
         mutableStateOf(-1)
@@ -70,6 +70,9 @@ fun QuestionContent(question: QuestionEntity,
     }
     var streamId by remember{
         mutableStateOf(0)
+    }
+    var hasNavigated by remember(question.id){
+        mutableStateOf(false)
     }
     val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition(label = "timer")
@@ -107,7 +110,8 @@ fun QuestionContent(question: QuestionEntity,
     }
     // Auto Next After 2 sec
     LaunchedEffect(showResult) {
-        if (showResult && timeLeft == 0) {
+        if (showResult && timeLeft == 0 && !hasNavigated) {
+            hasNavigated = true
             soundPool.stop(streamId)
             delay(2000)
             onNextClick()
@@ -211,7 +215,12 @@ fun QuestionContent(question: QuestionEntity,
                         fontSize = 18.sp)
 
                     Spacer(modifier = Modifier.height(20.dp))
-                    Button(onClick = onNextClick,
+                    Button(onClick = {
+                        if(!hasNavigated){
+                            hasNavigated = true
+                                onNextClick()
+                        }
+                    },
                         enabled = showResult,
                         modifier = Modifier.fillMaxWidth()) {
                         Text(text = "Next Question")

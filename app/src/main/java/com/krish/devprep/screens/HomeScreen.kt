@@ -54,6 +54,7 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
     LaunchedEffect(Unit) {
         viewModel.loadScore()
         viewModel.loadAttemptedCount()
+        viewModel.loadStats()
     }
     LaunchedEffect(Unit) {
         val uid = user.currentUser?.uid
