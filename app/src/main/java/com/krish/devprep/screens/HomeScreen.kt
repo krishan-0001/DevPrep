@@ -74,14 +74,18 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
         Category("Retrofit_API",Icons.Default.Cloud),
         Category("Room Database",Icons.Default.Storage),
         Category("Android Basics",Icons.Default.PhoneAndroid),
-        Category("System Design",Icons.Default.Settings)
+        Category("System Design",Icons.Default.Settings),
+        Category("Firebase",Icons.Default.Sync),
+        Category("Hilt",Icons.Default.Sync),
+        Category("Flow & StateFlow",Icons.Default.Sync),
+        Category("Navigation",Icons.Default.Sync),
     )
     Box(modifier = Modifier.fillMaxSize()
         .background(
             brush = Brush.verticalGradient(
                 colors = listOf(
-                    Color(0xFF2E7D32),
-                    Color(0xFF66BB6A)
+                    Color(0xFF1B5E20),
+                    Color(0xFF4CAF50)
                 )
             )
         )){

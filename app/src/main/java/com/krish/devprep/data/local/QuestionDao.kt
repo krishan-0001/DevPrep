@@ -32,4 +32,6 @@ interface QuestionDao {
     suspend fun getScore(): Int
     @Query("SELECT isAttempted FROM questions WHERE id = :id")
     suspend fun isQuestionAttempted(id: Int): Boolean
+    @Query("DELETE FROM questions")
+    suspend fun clearAll()
 }

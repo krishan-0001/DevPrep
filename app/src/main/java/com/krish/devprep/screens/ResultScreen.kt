@@ -96,7 +96,7 @@ fun ResultScreen(
                         Text(
                             text = "$animatedScore / ${totalQuestions * 10} Score",
                             fontSize = 36.sp,
-                            color = Color.Yellow,
+                            color = Color.Black,
                             fontWeight = FontWeight.Bold
                         )
 

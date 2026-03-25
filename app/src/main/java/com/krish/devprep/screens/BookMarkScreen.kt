@@ -52,8 +52,8 @@ fun BookMarkScreen(viewModel: QuestionViewModel){
         .background(
             brush = Brush.verticalGradient(
                 colors = listOf(
-                    Color(0xFF2E7D32),
-                    Color(0xFF66BB6A)
+                    Color(0xFF1B5E20),
+                    Color(0xFF4CAF50)
                 )
             )
         )){

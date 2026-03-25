@@ -26,7 +26,6 @@ class QuestionViewModel(private val dao: QuestionDao,
         private set
     var currentQuizScore by mutableStateOf(0)
         private set
-  //  private val answeredQuestions = mutableSetOf<Int>()
     var quizStats by mutableStateOf<QuizStatsEntity?>(null)
         private set
     val bookmarkedQuestions = dao.getBookmarkedQuestions()
@@ -86,10 +85,10 @@ class QuestionViewModel(private val dao: QuestionDao,
 
     fun loadQuestions(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (dao.getQuestionCount() == 0) {
+                dao.clearAll()
                 val loadedQuestions = JsonLoader.loadQuestions(context)
                 dao.insertAll(loadedQuestions)
-            }
+
             val result = dao.getQuestionsByCategory(category)
             withContext(Dispatchers.Main) {
                 questions.clear()

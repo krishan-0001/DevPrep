@@ -71,9 +71,6 @@ fun ProfileScreen(navController: NavHostController){
     var totalQuestions by remember {
         mutableStateOf(0L)
     }
-    var profileImageUrl by remember {
-        mutableStateOf("")
-    }
     var showDialog by remember{
         mutableStateOf(false)
     }
@@ -90,7 +87,6 @@ fun ProfileScreen(navController: NavHostController){
                     score = doc.getLong("score") ?: 0
                     quizzes = doc.getLong("quizzesAttempted") ?: 0
                     totalQuestions = doc.getLong("totalQuestions") ?: 0
-                    profileImageUrl = doc.getString("profileImage") ?: ""
 
                 }
         }
@@ -119,15 +115,6 @@ fun ProfileScreen(navController: NavHostController){
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            AsyncImage(
-                model = if(profileImageUrl.isNotEmpty()) profileImageUrl else null,
-                contentDescription = "Profile Image",
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .background(Color.Gray)
-            )
             Spacer(modifier = Modifier.height(12.dp))
             Text(text = "Name: $name", fontSize = 18.sp,
                 color = Color.White)
