@@ -1,13 +1,12 @@
-package com.krish.devprep.data.local
+package com.krish.devprep.data.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.krish.devprep.data.User
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-
+import com.krish.devprep.data.User
 
 class LeaderboardViewModel: ViewModel(){
 

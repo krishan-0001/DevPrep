@@ -1,8 +1,7 @@
-package com.krish.devprep.data.local
+package com.krish.devprep.data.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 

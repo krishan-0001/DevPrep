@@ -12,6 +12,9 @@ object Routes {
     const val SIGNUP = "signup"
     const val LEADERBOARD = "leaderboard"
     const val SPLASH = "splash"
+    const val GUIDE = "guide"
+    const val CODING = "coding"
+
 
 
 }

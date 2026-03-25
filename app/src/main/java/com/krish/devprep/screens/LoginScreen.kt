@@ -49,7 +49,7 @@ import androidx.navigation.NavHostController
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.krish.devprep.R
-import com.krish.devprep.data.local.AuthViewModel
+import com.krish.devprep.data.viewmodel.AuthViewModel
 import androidx.compose.ui.res.stringResource
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException

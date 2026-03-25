@@ -1,5 +1,4 @@
-package com.krish.devprep.data.local
-
+package com.krish.devprep.data.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -12,6 +11,13 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.krish.devprep.data.dao.CategoryStatsDao
+import com.krish.devprep.data.dao.QuestionDao
+import com.krish.devprep.data.dao.QuizStatsDao
+import com.krish.devprep.data.local.CategoryStatsEntity
+import com.krish.devprep.data.local.JsonLoader
+import com.krish.devprep.data.local.QuestionEntity
+import com.krish.devprep.data.local.QuizStatsEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,7 +25,8 @@ import kotlinx.coroutines.withContext
 class QuestionViewModel(private val dao: QuestionDao,
                         private val quizStatsDao: QuizStatsDao,
                         private val categoryStatsDao: CategoryStatsDao,
-                        private val context: Context) : ViewModel() {
+                        private val context: Context
+) : ViewModel() {
     var questions = mutableStateListOf<QuestionEntity>()
         private set
     var score by mutableStateOf(0)
@@ -42,7 +49,7 @@ class QuestionViewModel(private val dao: QuestionDao,
     fun loadScore(){
         viewModelScope.launch(Dispatchers.IO) {
             val result = dao.getScore()
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 score = result * 10
             }
         }
@@ -157,9 +164,9 @@ class QuestionViewModel(private val dao: QuestionDao,
                 quizStatsDao.insertStats(
                     QuizStatsEntity(
                         id = 1,
-                        quizzesAttempted = stats.quizzesAttempted+1,
-                        totalScore = stats.totalScore+score,
-                        totalQuestions = stats.totalQuestions+totalQuestions
+                        quizzesAttempted = stats.quizzesAttempted + 1,
+                        totalScore = stats.totalScore + score,
+                        totalQuestions = stats.totalQuestions + totalQuestions
 
                     )
                     )
@@ -198,7 +205,7 @@ class QuestionViewModel(private val dao: QuestionDao,
                     CategoryStatsEntity(
                         category = category,
                         totalQuestions = 1,
-                        correctAnswers = if(correct) 1 else 0
+                        correctAnswers = if (correct) 1 else 0
                     )
                 )
             }
@@ -206,8 +213,8 @@ class QuestionViewModel(private val dao: QuestionDao,
                 categoryStatsDao.insertStats(
                     CategoryStatsEntity(
                         category = category,
-                        totalQuestions = stats.totalQuestions+1,
-                        correctAnswers = stats.correctAnswers + if(correct) 1 else 0
+                        totalQuestions = stats.totalQuestions + 1,
+                        correctAnswers = stats.correctAnswers + if (correct) 1 else 0
 
                     )
                 )

@@ -1,4 +1,7 @@
-package com.krish.devprep.data.local
+package com.krish.devprep.data.viewmodel
+
+import com.krish.devprep.data.dao.QuestionDao
+import com.krish.devprep.data.local.QuestionEntity
 
 class QuestionRepository(private val dao: QuestionDao) {
 
@@ -10,5 +13,3 @@ class QuestionRepository(private val dao: QuestionDao) {
         dao.updateBookmark(question.id, !question.isBookmarked)
     }
 }
-
-

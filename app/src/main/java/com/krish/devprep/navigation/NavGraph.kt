@@ -7,10 +7,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.krish.devprep.data.local.AppDatabase
-import com.krish.devprep.data.local.QuestionViewModel
-import com.krish.devprep.data.local.QuestionViewModelFactory
+import com.krish.devprep.data.database.AppDatabase
+import com.krish.devprep.data.viewmodel.GuideViewModel
+import com.krish.devprep.data.viewmodel.QuestionViewModel
+import com.krish.devprep.data.viewmodel.AppViewModelFactory
+import com.krish.devprep.data.viewmodel.CodingViewModel
 import com.krish.devprep.screens.BookMarkScreen
+import com.krish.devprep.screens.CodingScreen
+import com.krish.devprep.screens.GuideScreen
 import com.krish.devprep.screens.HomeScreen
 import com.krish.devprep.screens.LeaderBoardScreen
 import com.krish.devprep.screens.LoginScreen
@@ -25,15 +29,20 @@ import java.net.URLDecoder
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
     val context  = LocalContext.current
-    val database = AppDatabase.getDatabase(context)
-    val viewModel: QuestionViewModel = viewModel(
-        factory = QuestionViewModelFactory(
-            database.questionDao(),
-            database.quizStatsDao(),
-            database.categoryStatsDao(),
-            context
-        )
+    val db = AppDatabase.getDatabase(context)
+
+    val factory = AppViewModelFactory(
+        questionDao = db.questionDao(),
+        guideDao = db.guideDao(),
+        codingDao = db.codingDao(),
+        quizStatsDao = db.quizStatsDao(),
+        categoryStatsDao = db.categoryStatsDao(),
+        context = context
     )
+    val questionViewModel: QuestionViewModel = viewModel(factory = factory)
+    val guideViewModel: GuideViewModel = viewModel(factory = factory)
+    val codingViewModel: CodingViewModel = viewModel(factory = factory)
+
 
     val startDestination = Routes.SPLASH
     NavHost(
@@ -42,13 +51,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         modifier = modifier
     ){
         composable(Routes.HOME){
-            HomeScreen(navController, viewModel)
+            HomeScreen(navController, questionViewModel)
         }
         composable(Routes.BOOKMARK){
-            BookMarkScreen(viewModel)
+            BookMarkScreen(questionViewModel)
         }
         composable(Routes.PROGRESS){
-            ProgressScreen(navController, viewModel)
+            ProgressScreen(navController, questionViewModel)
         }
         composable(Routes.PROFILE){
             ProfileScreen(navController)
@@ -56,13 +65,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         composable("${Routes.QUESTIONS}/{category}") { backStackEntry->
             val categoryArg = backStackEntry.arguments?.getString("category") ?: ""
             val category = URLDecoder.decode(categoryArg, "UTF-8")
-            QuestionScreen(category = category, navController = navController,viewModel)
+            QuestionScreen(category = category, navController = navController,questionViewModel)
 
         }
         composable("results/{score}/{total}") {backStackEntry ->
             val score = backStackEntry.arguments?.getString("score")?.toInt() ?:0
             val total = backStackEntry.arguments?.getString("total")?.toInt() ?:0
-            ResultScreen(score,total,navController,viewModel)
+            ResultScreen(score,total,navController,questionViewModel)
 
         }
         composable(Routes.LOGIN) {
@@ -76,6 +85,14 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         }
         composable(Routes.SPLASH) {
             SplashScreen(navController)
+        }
+        composable(Routes.GUIDE) {
+            GuideScreen(viewModel = guideViewModel)
+        }
+        composable("coding/{category") {
+            val category = it.arguments?.getString("category") ?: ""
+            CodingScreen(category,codingViewModel)
+
         }
     }
 }

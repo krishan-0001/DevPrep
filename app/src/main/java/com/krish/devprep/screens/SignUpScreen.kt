@@ -56,7 +56,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.krish.devprep.R
-import com.krish.devprep.data.local.AuthViewModel
+import com.krish.devprep.data.viewmodel.AuthViewModel
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {

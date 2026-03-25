@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "title": "Kotlin Basics",
+    "description": "Learn variables, functions, OOP concepts in Kotlin.",
+    "level": "Beginner",
+    "order": 1,
+    "content": "Start with variables (val, var), then functions, then classes. Practice small programs daily.",
+    "resources": [
+      "https://kotlinlang.org/docs/home.html",
+      "https://www.youtube.com/watch?v=F9UC9DY-vIU"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Jetpack Compose",
+    "description": "Modern UI toolkit for Android.",
+    "level": "Intermediate",
+    "order": 2,
+    "content": "Learn composables, state management, layouts like Row, Column, Box.",
+    "resources": [
+      "https://developer.android.com/jetpack/compose"
+    ]
+  }
+]

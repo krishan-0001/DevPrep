@@ -37,7 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.krish.devprep.data.local.QuestionViewModel
+import com.krish.devprep.data.viewmodel.QuestionViewModel
 
 @Composable
 fun ProgressScreen(navController: NavHostController,

@@ -1,15 +1,16 @@
-package com.krish.devprep.data.local
+package com.krish.devprep.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.krish.devprep.data.local.QuestionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestionDao {
-     @Insert(onConflict = OnConflictStrategy.REPLACE)
+     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
      suspend fun insertAll(questions: List<QuestionEntity>)
 
      @Query("SELECT * FROM questions WHERE category = :category")

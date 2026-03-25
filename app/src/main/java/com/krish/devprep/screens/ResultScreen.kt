@@ -1,5 +1,6 @@
 package com.krish.devprep.screens
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -15,8 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.krish.devprep.data.local.QuestionViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.krish.devprep.data.viewmodel.QuestionViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
 import kotlin.random.Random
 
 @Composable
@@ -25,8 +30,50 @@ fun ResultScreen(
     viewModel: QuestionViewModel
 
 ) {
+    val auth = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
     LaunchedEffect(Unit) {
         viewModel.resetQuiz()
+
+        // SAVE DATA TO FIREBASE
+        val uid = auth.currentUser?.uid
+     //   Log.d("FIREBASE_DEBUG", "UID: $uid")
+        uid?.let { userId->
+            try {
+            //    Log.d("FIREBASE_DEBUG", "Inside UID block")
+                val doc = db.collection("users")
+                    .document(userId)
+                    .get()
+                    .await()
+              //  Log.d("FIREBASE_DEBUG", "Document fetched: ${doc.data}")
+                val prevScore = doc.getLong("score") ?: 0L
+                val prevQuizzes = doc.getLong("quizzesAttempted") ?: 0L
+                val prevTotalQuestions = doc.getLong("totalQuestions") ?: 0L
+                val newScore = prevScore + currentQuizScore
+                val newQuizzes = prevQuizzes + 1
+                val newTotalQuestions = prevTotalQuestions + totalQuestions
+               // Log.d("FIREBASE_DEBUG", "New Score: $newScore")
+                db.collection("users")
+                    .document(userId)
+                    .update(
+                        mapOf(
+                            "score" to newScore,
+                            "quizzesAttempted" to newQuizzes,
+                            "totalQuestions" to newTotalQuestions
+                        )
+                    )
+                    .await()
+              //  Log.d("FIREBASE_DEBUG", " FIREBASE UPDATED SUCCESS")
+
+            }
+            catch (e: Exception){
+                Log.e("FIREBASE_ERROR", "Error: ${e.message}")
+            }
+
+        }
+//            ?: run {
+//            Log.d("FIREBASE_DEBUG", "UID is null")
+//        }
     }
 
     //val currentQuizScore = viewModel.currentQuizScore

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "category": "Kotlin",
+    "question": "Write a function to reverse a string",
+    "code": "fun reverse(str: String): String { return str.reversed() }",
+    "explanation": "The reversed() function returns a new string with characters in reverse order. It is efficient and concise.",
+    "difficulty": "Easy",
+    "company": "Common",
+    "isBookmarked": false
+  },
+  {
+    "id": 2,
+    "category": "Android",
+    "question": "How to call API using Retrofit?",
+    "code": "@GET(\"users\") suspend fun getUsers(): Response<List<User>>",
+    "explanation": "Retrofit uses annotations to define API endpoints. suspend allows coroutine-based async calls.",
+    "difficulty": "Medium",
+    "company": "Startup",
+    "isBookmarked": false
+  }
+]

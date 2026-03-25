@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.AccountTree
 import androidx.compose.material.icons.filled.Android
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
@@ -40,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.krish.devprep.components.CategoryCard
 import com.krish.devprep.data.Category
-import com.krish.devprep.data.local.QuestionViewModel
+import com.krish.devprep.data.viewmodel.QuestionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -79,6 +80,8 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
         Category("Hilt",Icons.Default.Sync),
         Category("Flow & StateFlow",Icons.Default.Sync),
         Category("Navigation",Icons.Default.Sync),
+        Category("Guide",Icons.Default.MenuBook),
+        Category("Coding",Icons.Default.Code)
     )
     Box(modifier = Modifier.fillMaxSize()
         .background(
@@ -133,8 +136,16 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
             ) {
                 items(categories){category->
                     CategoryCard(category) {
-                        val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")
-                        navController.navigate("questions/${encoded}")
+                        if(category.title== "Guide"){
+                            navController.navigate("guide")
+                        }
+                        else if(category.title == "Coding"){
+                            navController.navigate("coding")
+                        }
+                        else{
+                            val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")
+                            navController.navigate("questions/${encoded}")
+                        }
                     }
 
                 }

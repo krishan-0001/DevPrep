@@ -13,8 +13,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.krish.devprep.components.BottomBar
 import com.krish.devprep.components.TopBar
-import com.krish.devprep.data.local.DatabaseProvider
-import com.krish.devprep.data.local.QuestionRepository
+import com.krish.devprep.data.database.DatabaseProvider
+import com.krish.devprep.data.viewmodel.QuestionRepository
 import com.krish.devprep.navigation.NavGraph
 import com.krish.devprep.ui.theme.DevPrepTheme
 

@@ -41,7 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.krish.devprep.data.local.QuestionViewModel
+import com.krish.devprep.data.viewmodel.QuestionViewModel
 
 @Composable
 fun BookMarkScreen(viewModel: QuestionViewModel){

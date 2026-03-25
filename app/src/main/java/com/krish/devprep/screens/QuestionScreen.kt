@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
-import com.krish.devprep.data.local.QuestionViewModel
+import com.krish.devprep.data.viewmodel.QuestionViewModel
 import kotlinx.coroutines.delay
 
 @Composable

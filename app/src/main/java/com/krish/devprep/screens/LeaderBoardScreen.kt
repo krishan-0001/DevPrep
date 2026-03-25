@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.krish.devprep.data.User
-import com.krish.devprep.data.local.LeaderboardViewModel
+import com.krish.devprep.data.viewmodel.LeaderboardViewModel
 
 @Composable
 fun LeaderBoardScreen(viewModel: LeaderboardViewModel = viewModel()) {
