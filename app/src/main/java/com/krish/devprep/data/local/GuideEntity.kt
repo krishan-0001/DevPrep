@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "guide")
 data class GuideEntity (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int,
     val title: String,
     val description: String,
@@ -13,5 +13,4 @@ data class GuideEntity (
     val order: Int,
     val content: String,
     val resources: List<String>
-
-    )
+)

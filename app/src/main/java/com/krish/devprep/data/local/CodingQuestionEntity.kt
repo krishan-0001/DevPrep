@@ -3,10 +3,9 @@ package com.krish.devprep.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "coding_Questions")
+@Entity(tableName = "coding_questions")
 data class CodingQuestionEntity(
-
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int,
     val category: String,
     val question: String,
@@ -14,6 +13,5 @@ data class CodingQuestionEntity(
     val explanation: String,
     val difficulty: String,
     val company: String,
-    val isBookmarked: Boolean,
-
+    val isBookmarked: Boolean = false
 )

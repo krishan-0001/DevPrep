@@ -1,17 +1,16 @@
 package com.krish.devprep.data.local
 
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
 
 class Converters {
 
-    @TypeConverters
+    @TypeConverter
     fun fromList(list: List<String>): String {
         return list.joinToString(",")
     }
-    @TypeConverters
+
+    @TypeConverter
     fun toList(data: String): List<String> {
         return data.split(",")
     }
-
-
 }

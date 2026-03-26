@@ -23,7 +23,7 @@ import com.krish.devprep.data.local.QuizStatsEntity
                CategoryStatsEntity::class,
                GuideEntity::class,
                CodingQuestionEntity::class],
-    version = 6
+    version = 9
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase(){

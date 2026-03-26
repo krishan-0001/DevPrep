@@ -1,5 +1,6 @@
 package com.krish.devprep.navigation
 
+import android.R.attr.category
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -8,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.krish.devprep.data.database.AppDatabase
+import com.krish.devprep.data.database.DatabaseProvider
 import com.krish.devprep.data.viewmodel.GuideViewModel
 import com.krish.devprep.data.viewmodel.QuestionViewModel
 import com.krish.devprep.data.viewmodel.AppViewModelFactory
@@ -29,7 +31,7 @@ import java.net.URLDecoder
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
     val context  = LocalContext.current
-    val db = AppDatabase.getDatabase(context)
+    val db = DatabaseProvider.provideDatabase(context)
 
     val factory = AppViewModelFactory(
         questionDao = db.questionDao(),
@@ -87,12 +89,11 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
             SplashScreen(navController)
         }
         composable(Routes.GUIDE) {
-            GuideScreen(viewModel = guideViewModel)
+            GuideScreen(guideViewModel)
         }
-        composable("coding/{category") {
+        composable("${Routes.CODING}/{category}" ) {
             val category = it.arguments?.getString("category") ?: ""
             CodingScreen(category,codingViewModel)
-
         }
     }
 }

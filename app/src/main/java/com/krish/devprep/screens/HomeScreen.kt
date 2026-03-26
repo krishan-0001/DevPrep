@@ -44,6 +44,7 @@ import com.krish.devprep.data.Category
 import com.krish.devprep.data.viewmodel.QuestionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.krish.devprep.navigation.Routes
 
 @Composable
 fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
@@ -140,7 +141,7 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
                             navController.navigate("guide")
                         }
                         else if(category.title == "Coding"){
-                            navController.navigate("coding")
+                            navController.navigate("coding/${category.title}")
                         }
                         else{
                             val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")

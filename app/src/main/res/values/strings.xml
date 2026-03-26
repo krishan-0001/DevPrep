@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DevPrep</string>
-    <!-- Replace with your actual web client ID from Firebase Console -->
-    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
+    <!-- Actual web client ID from google-services.json (client_type 3) -->
+    <string name="default_web_client_id">456716904678-5eis42k8t61rmm5e3rc8hgqmtdl4mp5l.apps.googleusercontent.com</string>
 </resources>
