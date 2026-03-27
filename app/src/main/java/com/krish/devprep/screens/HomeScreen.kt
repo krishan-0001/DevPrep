@@ -69,6 +69,8 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
         }
     }
     val categories = listOf(
+        Category("Guide",Icons.Default.MenuBook),
+        Category("Coding",Icons.Default.Code),
         Category("Kotlin",Icons.Default.Code),
         Category("JetPack Compose",Icons.Default.Android),
         Category("MVVM & Architecture",Icons.Default.AccountTree),
@@ -80,9 +82,8 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
         Category("Firebase",Icons.Default.Sync),
         Category("Hilt",Icons.Default.Sync),
         Category("Flow & StateFlow",Icons.Default.Sync),
-        Category("Navigation",Icons.Default.Sync),
-        Category("Guide",Icons.Default.MenuBook),
-        Category("Coding",Icons.Default.Code)
+        Category("Navigation",Icons.Default.Sync)
+
     )
     Box(modifier = Modifier.fillMaxSize()
         .background(

@@ -1,6 +1,7 @@
 package com.krish.devprep.components
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
@@ -17,7 +20,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -39,7 +41,7 @@ import com.krish.devprep.data.local.CodingQuestionEntity
 import com.krish.devprep.data.viewmodel.CodingViewModel
 
 @Composable
-fun CodingItem(question: CodingQuestionEntity, viewModel: CodingViewModel){
+fun CodingItem(question: CodingQuestionEntity, viewModel: CodingViewModel, index: Int){
 
     var showCode by remember{
         mutableStateOf(false)
@@ -56,8 +58,18 @@ fun CodingItem(question: CodingQuestionEntity, viewModel: CodingViewModel){
 
         Column(modifier = Modifier.padding(16.dp)) {
 
-            Text(text = question.question,
-                fontWeight = FontWeight.Bold)
+            Row(verticalAlignment = Alignment.CenterVertically)  {
+                Box(modifier = Modifier
+                    .background(Color(0xFF4CAF50), shape = CircleShape)
+                    .padding(horizontal = 10.dp, vertical = 4.dp)){
+                    Text(text = index.toString(),
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(text = question.question,
+                    fontWeight = FontWeight.Bold)
+            }
 
             Spacer(modifier = Modifier.height(6.dp))
 
@@ -87,27 +99,23 @@ fun CodingItem(question: CodingQuestionEntity, viewModel: CodingViewModel){
                     colors = CardDefaults.cardColors(containerColor = Color(0xFF263238)
                 )
                 ) {
-                    Box(modifier = Modifier.padding(10.dp)) {
-//                        Text(text = "Code",
-//                            color = Color.White,
-//                            fontWeight = FontWeight.Bold)
-                        Spacer(modifier = Modifier.height(8.dp))
-
+                    Column(modifier = Modifier.padding(10.dp)) {
                         val clipBoardManager = LocalClipboardManager.current
-                        IconButton(onClick = {
-                            clipBoardManager.setText(AnnotatedString(question.code))
-                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                        },
-                            modifier = Modifier.align(Alignment.TopEnd)
-                        ) {
-
-                            Icon(
-                                imageVector = Icons.Default.ContentCopy,
-                                contentDescription = "Copy Code",
-                                tint = Color.White
-                            )
+                        Row(modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.Top){
+                            IconButton(onClick = {
+                                clipBoardManager.setText(AnnotatedString(question.code))
+                                Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                            }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ContentCopy,
+                                    contentDescription = "Copy Code",
+                                    tint = Color.White
+                                )
+                            }
                         }
-
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = question.code,
                             color = Color.White,
@@ -115,7 +123,6 @@ fun CodingItem(question: CodingQuestionEntity, viewModel: CodingViewModel){
                             fontSize = 14.sp,
                             modifier = Modifier.padding(10.dp))
                     }
-
                 }
             }
             if(showExplanation){

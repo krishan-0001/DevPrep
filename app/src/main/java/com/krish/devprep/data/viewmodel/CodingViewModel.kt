@@ -11,37 +11,56 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.compose.runtime.mutableStateListOf
+import com.krish.devprep.ui.filter.Difficulty
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.stateIn
+import kotlin.collections.emptyList
 
 class CodingViewModel(
     private val dao: CodingDao,
     private val context: Context
 ) : ViewModel(){
 
-    val questions = mutableStateListOf<CodingQuestionEntity>()
+    private val _questions = MutableStateFlow<List<CodingQuestionEntity>>(emptyList())
+    val questions: StateFlow<List<CodingQuestionEntity>> = _questions
+    //val questions = mutableStateListOf<CodingQuestionEntity>()
 
+    private val _selectedDifficulty = MutableStateFlow(Difficulty.ALL)
+    val selectedDifficulty : StateFlow<Difficulty> = _selectedDifficulty
+
+    val filteredQuestions = combine(_questions,_selectedDifficulty){list,difficulty->
+
+        when(difficulty){
+            Difficulty.ALL -> list
+            else -> list.filter{
+                it.difficulty.equals(difficulty.name, ignoreCase = true)
+            }
+        }
+
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        emptyList()
+    )
+    fun setDifficulty(difficulty: Difficulty){
+        _selectedDifficulty.value = difficulty
+    }
 
     fun loadQuestions(category: String){
 
         viewModelScope.launch(Dispatchers.IO) {
-            val count = dao.getCount()
-           // Log.d("DEBUG", "Total Coding Questions: $count")
-
                 val data = JsonLoader.loadCodingQuestions(context)
-                //  Log.d("DEBUG", "Loaded JSON size: ${data.size}")
                 dao.insertAll(data)
-
-            
             val result = if (category == "Coding") {
                 dao.getAll()
             } else {
                 dao.getByCategory(category)
             }
-            
-          //  Log.d("DEBUG", "Category: $category, Result size: ${result.size}")
-            withContext(Dispatchers.Main){
-                questions.clear()
-                questions.addAll(result)
-            }
+            _questions.value = result
         }
     }
 
@@ -49,10 +68,13 @@ class CodingViewModel(
         viewModelScope.launch {
             val newState = !question.isBookmarked
             dao.updateBookmark(question.id, newState)
-            val index = questions.indexOfFirst { it.id == question.id }
-            if(index != -1){
-                questions[index] = question.copy(isBookmarked = newState)
+            val updatedList = _questions.value.map {
+                if(it.id == question.id){
+                    it.copy(isBookmarked = newState)
+                }
+                else it
             }
+            _questions.value = updatedList
         }
     }
 }
