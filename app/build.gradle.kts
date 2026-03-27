@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.krish.devprep"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -72,5 +72,5 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
 
     implementation("io.coil-kt:coil-compose:2.6.0")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 }

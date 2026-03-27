@@ -17,18 +17,23 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.room.util.TableInfo
 import com.krish.devprep.components.GuideItem
+import com.krish.devprep.data.database.AppDatabase
 import com.krish.devprep.data.viewmodel.GuideViewModel
 
 @Composable
 fun GuideScreen(viewModel: GuideViewModel){
-
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
+        AppDatabase.clearDatabase(context)
         viewModel.loadGuides()
     }
+
+
     val guides = viewModel.guides
 
     Box(

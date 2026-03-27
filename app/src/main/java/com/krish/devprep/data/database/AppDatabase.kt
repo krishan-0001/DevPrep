@@ -16,6 +16,8 @@ import com.krish.devprep.data.local.Converters
 import com.krish.devprep.data.local.GuideEntity
 import com.krish.devprep.data.local.QuestionEntity
 import com.krish.devprep.data.local.QuizStatsEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Database(
     entities = [QuestionEntity::class,
@@ -23,7 +25,7 @@ import com.krish.devprep.data.local.QuizStatsEntity
                CategoryStatsEntity::class,
                GuideEntity::class,
                CodingQuestionEntity::class],
-    version = 9
+    version = 11
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase(){
@@ -43,13 +45,13 @@ abstract class AppDatabase: RoomDatabase(){
                     context.applicationContext,
                     AppDatabase::class.java,
                     "devprep_db"
-                ).fallbackToDestructiveMigration()
+                ).fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance
                 instance
             }
         }
-       suspend fun clearDatabase(context: Context){
+       suspend fun clearDatabase(context: Context) = withContext(Dispatchers.IO) {
            val db = getDatabase(context)
            db.clearAllTables()
         }

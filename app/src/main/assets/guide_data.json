@@ -1,25 +1,250 @@
 [
   {
-    "id": 1,
+    "step": 1,
     "title": "Kotlin Basics",
-    "description": "Learn variables, functions, OOP concepts in Kotlin.",
     "level": "Beginner",
-    "order": 1,
-    "content": "Start with variables (val, var), then functions, then classes. Practice small programs daily.",
+    "whatToLearn": [
+      "Variables(val,var)",
+      "Functions",
+      "OOP concepts"
+    ],
+    "explanation": "Kotlin is a modern language used for Android development. It is concise and safe.",
     "resources": [
       "https://kotlinlang.org/docs/home.html",
-      "https://www.youtube.com/watch?v=F9UC9DY-vIU"
+      "https://youtube.com/..."
     ]
   },
-  {
-    "id": 2,
-    "title": "Jetpack Compose",
-    "description": "Modern UI toolkit for Android.",
-    "level": "Intermediate",
-    "order": 2,
-    "content": "Learn composables, state management, layouts like Row, Column, Box.",
-    "resources": [
-      "https://developer.android.com/jetpack/compose"
-    ]
-  }
+    {
+      "step": 2,
+      "title": "Kotlin Advanced Concepts",
+      "level": "Beginner to Intermediate",
+      "whatToLearn": [
+        "Null Safety",
+        "Data Classes",
+        "Collections (List, Map, Set)",
+        "Lambda Functions",
+        "Extension Functions"
+      ],
+      "explanation": "After learning the basics, it is important to understand how Kotlin improves code safety and readability. Null safety helps you avoid crashes caused by null values, which is very common in Android apps. Data classes reduce boilerplate code when working with models. Collections help you manage and manipulate groups of data efficiently. Lambda and extension functions allow you to write cleaner and more reusable code. Mastering these will make your coding faster and more professional.",
+      "resources": [
+        "https://kotlinlang.org/docs/null-safety.html",
+        "https://kotlinlang.org/docs/collections-overview.html"
+      ]
+    },
+    {
+      "step": 3,
+      "title": "Android Fundamentals",
+      "level": "Beginner",
+      "whatToLearn": [
+        "Activity Lifecycle",
+        "Fragments",
+        "Intents",
+        "Layouts (XML)",
+        "Basic UI Components"
+      ],
+      "explanation": "Android apps are built using components like Activities and Fragments. Understanding the lifecycle is very important because it controls how your app behaves when opened, paused, or closed. Intents are used to navigate between screens and share data. Layouts define how your UI looks on screen. Learning these fundamentals gives you a strong base to build any Android app properly.",
+      "resources": [
+        "https://developer.android.com/guide/components/activities/intro-activities",
+        "https://developer.android.com/guide/fragments"
+      ]
+    },
+    {
+      "step": 4,
+      "title": "Jetpack Compose UI",
+      "level": "Beginner to Intermediate",
+      "whatToLearn": [
+        "Composable Functions",
+        "State Management",
+        "Layouts (Row, Column, Box)",
+        "Modifiers",
+        "Recomposition"
+      ],
+      "explanation": "Jetpack Compose is the modern way to build Android UI without XML. Instead of writing layouts in XML, you write UI directly in Kotlin using composable functions. Understanding state is very important because UI automatically updates when state changes. Layouts like Row, Column, and Box help you structure your UI. Modifiers allow customization like padding, size, and background. Compose makes UI development faster and more intuitive once you understand its core concepts.",
+      "resources": [
+        "https://developer.android.com/jetpack/compose",
+        "https://developer.android.com/jetpack/compose/tutorial"
+      ]
+    },
+    {
+      "step": 5,
+      "title": "Navigation in Android",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "Navigation Component",
+        "NavController",
+        "Passing Data Between Screens",
+        "Back Stack Handling"
+      ],
+      "explanation": "Navigation is how users move between screens in your app. The Navigation Component helps you manage this in a structured way. NavController controls which screen is currently visible. Passing data between screens is a common requirement, especially in apps like quizzes or e-commerce. Understanding back stack ensures proper behavior when users press the back button. Proper navigation makes your app feel smooth and professional.",
+      "resources": [
+        "https://developer.android.com/guide/navigation",
+        "https://developer.android.com/jetpack/compose/navigation"
+      ]
+    },
+    {
+      "step": 6,
+      "title": "Local Data Storage (Room Database)",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "Room Database",
+        "Entities",
+        "DAO (Data Access Object)",
+        "TypeConverters",
+        "Database Migrations"
+      ],
+      "explanation": "Most apps need to store data locally, such as user progress, notes, or cached content. Room is a library that makes database handling easier and safer. Entities represent tables, and DAO contains functions to access data. TypeConverters help store complex data types like lists. Understanding migrations is important when updating your database without losing user data. This is a critical skill for building real-world apps.",
+      "resources": [
+        "https://developer.android.com/training/data-storage/room",
+        "https://developer.android.com/codelabs/android-room-with-a-view"
+      ]
+    },
+    {
+      "step": 7,
+      "title": "Networking (API Integration)",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "REST APIs",
+        "Retrofit",
+        "JSON Parsing",
+        "Error Handling",
+        "Coroutines"
+      ],
+      "explanation": "Modern apps fetch data from the internet, such as news, user profiles, or quiz questions. Retrofit is a popular library used to call APIs easily. You will learn how to send requests and receive responses in JSON format. Coroutines help you run network operations in the background without freezing the UI. Proper error handling ensures your app works smoothly even when the network fails. This step makes your apps dynamic and real-time.",
+      "resources": [
+        "https://square.github.io/retrofit/",
+        "https://developer.android.com/kotlin/coroutines"
+      ]
+    },
+    {
+      "step": 8,
+      "title": "Firebase Integration",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "Firebase Authentication",
+        "Firestore Database",
+        "Realtime Database",
+        "Cloud Storage"
+      ],
+      "explanation": "Firebase provides backend services so you don’t need to build your own server. Authentication allows users to sign in using Google or email. Firestore and Realtime Database help store and sync data across users. Cloud Storage is used for storing files like images. Firebase is very useful for apps like your quiz app where user data and progress need to be stored online. It makes your app scalable and production-ready.",
+      "resources": [
+        "https://firebase.google.com/docs",
+        "https://developer.android.com/training/firebase"
+      ]
+    },
+    {
+      "step": 9,
+      "title": "MVVM Architecture",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "ViewModel",
+        "LiveData / StateFlow",
+        "Repository Pattern",
+        "Separation of Concerns"
+      ],
+      "explanation": "MVVM (Model-View-ViewModel) is the most widely used architecture in Android development. It helps you separate UI logic from business logic, making your app clean and maintainable. ViewModel stores UI-related data and survives configuration changes like screen rotation. LiveData or StateFlow helps update UI automatically when data changes. Repository acts as a single source of data. Learning MVVM is very important for writing scalable and industry-level Android apps.",
+      "resources": [
+        "https://developer.android.com/topic/architecture",
+        "https://developer.android.com/topic/libraries/architecture/viewmodel"
+      ]
+    },
+    {
+      "step": 10,
+      "title": "Dependency Injection (Hilt)",
+      "level": "Intermediate to Advanced",
+      "whatToLearn": [
+        "Hilt Basics",
+        "Modules and Provides",
+        "Singleton Pattern",
+        "Injection in ViewModel"
+      ],
+      "explanation": "Dependency Injection helps you manage object creation in a clean and efficient way. Instead of manually creating objects, Hilt automatically provides dependencies where needed. This reduces boilerplate code and improves testability. You will learn how to define modules, provide dependencies, and inject them into classes like ViewModel. Hilt is widely used in modern Android projects and is often expected in interviews.",
+      "resources": [
+        "https://developer.android.com/training/dependency-injection/hilt-android",
+        "https://dagger.dev/hilt/"
+      ]
+    },
+    {
+      "step": 11,
+      "title": "Asynchronous Programming",
+      "level": "Intermediate",
+      "whatToLearn": [
+        "Coroutines",
+        "Dispatchers",
+        "Flow",
+        "Suspend Functions"
+      ],
+      "explanation": "Android apps must perform tasks like API calls and database operations without blocking the main thread. Coroutines help you write asynchronous code in a simple and readable way. Dispatchers decide which thread the task runs on. Flow is used for handling streams of data asynchronously. Suspend functions allow long-running operations without freezing the UI. Mastering this ensures your app is smooth, responsive, and efficient.",
+      "resources": [
+        "https://developer.android.com/kotlin/coroutines",
+        "https://kotlinlang.org/docs/flow.html"
+      ]
+    },
+    {
+      "step": 12,
+      "title": "Testing in Android",
+      "level": "Advanced",
+      "whatToLearn": [
+        "Unit Testing",
+        "JUnit",
+        "UI Testing (Espresso)",
+        "Mocking (Mockito)"
+      ],
+      "explanation": "Testing ensures your app works correctly and reduces bugs. Unit testing checks individual components like functions and ViewModels. UI testing ensures your app behaves correctly from the user’s perspective. Tools like JUnit and Espresso help automate testing. Mocking allows you to simulate dependencies like APIs. Learning testing improves code quality and is highly valued in professional development environments.",
+      "resources": [
+        "https://developer.android.com/training/testing",
+        "https://developer.android.com/training/testing/espresso"
+      ]
+    },
+    {
+      "step": 13,
+      "title": "Performance Optimization",
+      "level": "Advanced",
+      "whatToLearn": [
+        "Memory Management",
+        "Avoiding Memory Leaks",
+        "Efficient UI Rendering",
+        "Profiling Tools"
+      ],
+      "explanation": "A good app is not just functional but also fast and efficient. Performance optimization involves reducing memory usage, avoiding leaks, and ensuring smooth UI rendering. Android provides profiling tools to analyze CPU, memory, and network usage. You will learn how to optimize layouts and background tasks. This step is crucial for building apps that perform well even on low-end devices.",
+      "resources": [
+        "https://developer.android.com/topic/performance",
+        "https://developer.android.com/studio/profile"
+      ]
+    },
+    {
+      "step": 14,
+      "title": "App Publishing & Play Store",
+      "level": "Advanced",
+      "whatToLearn": [
+        "App Signing",
+        "APK / AAB Generation",
+        "Play Store Listing",
+        "App Policies"
+      ],
+      "explanation": "Once your app is ready, the next step is publishing it on the Play Store. You need to generate a signed APK or AAB file and upload it to the Play Console. You will also create app descriptions, screenshots, and icons for listing. Understanding Play Store policies is important to avoid rejection. This step turns your project into a real product available to users worldwide.",
+      "resources": [
+        "https://developer.android.com/studio/publish",
+        "https://play.google.com/console"
+      ]
+    },
+    {
+      "step": 15,
+      "title": "Real Projects & Interview Preparation",
+      "level": "Advanced",
+      "whatToLearn": [
+        "Build Portfolio Apps",
+        "Git & GitHub",
+        "Interview Questions",
+        "System Design Basics"
+      ],
+      "explanation": "To get a job, you must demonstrate your skills through real projects. Build apps like a quiz app, chat app, or e-commerce app and upload them on GitHub. Learn Git for version control and collaboration. Practice common Android interview questions and understand system design basics. This step is where you transition from learning to becoming job-ready. A strong portfolio and preparation significantly increase your chances of getting hired.",
+      "resources": [
+        "https://github.com/",
+        "https://leetcode.com/"
+      ]
+    }
+
+
+
+
 ]

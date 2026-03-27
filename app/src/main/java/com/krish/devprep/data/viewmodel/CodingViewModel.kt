@@ -24,12 +24,12 @@ class CodingViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             val count = dao.getCount()
-            Log.d("DEBUG", "Total Coding Questions: $count")
-            if(count == 0){
+           // Log.d("DEBUG", "Total Coding Questions: $count")
+
                 val data = JsonLoader.loadCodingQuestions(context)
-                Log.d("DEBUG", "Loaded JSON size: ${data.size}")
+                //  Log.d("DEBUG", "Loaded JSON size: ${data.size}")
                 dao.insertAll(data)
-            }
+
             
             val result = if (category == "Coding") {
                 dao.getAll()
@@ -37,7 +37,7 @@ class CodingViewModel(
                 dao.getByCategory(category)
             }
             
-            Log.d("DEBUG", "Category: $category, Result size: ${result.size}")
+          //  Log.d("DEBUG", "Category: $category, Result size: ${result.size}")
             withContext(Dispatchers.Main){
                 questions.clear()
                 questions.addAll(result)

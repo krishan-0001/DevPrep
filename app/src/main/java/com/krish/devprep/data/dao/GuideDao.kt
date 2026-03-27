@@ -12,7 +12,7 @@ interface GuideDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE )
     suspend fun insertAll(guides: List<GuideEntity>)
 
-    @Query("SELECT * FROM guide ORDER BY `order` ASC")
+    @Query("SELECT * FROM guide ORDER BY step ASC")
     suspend fun getAllGuides(): List<GuideEntity>
 
 }

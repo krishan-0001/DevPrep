@@ -8,7 +8,7 @@ import com.krish.devprep.data.local.CodingQuestionEntity
 @Dao
 interface CodingDao{
 
-    @Insert
+    @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
     suspend fun insertAll(questions: List<CodingQuestionEntity>)
 
     @Query("SELECT * FROM coding_questions WHERE LOWER(category) = LOWER(:category)")

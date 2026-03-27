@@ -6,11 +6,11 @@ class Converters {
 
     @TypeConverter
     fun fromList(list: List<String>): String {
-        return list.joinToString(",")
+        return list.joinToString("||")
     }
 
     @TypeConverter
     fun toList(data: String): List<String> {
-        return data.split(",")
+        return data.split("||")
     }
 }
