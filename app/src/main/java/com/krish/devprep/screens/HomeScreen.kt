@@ -68,22 +68,29 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
                 }
         }
     }
-    val categories = listOf(
-        Category("Guide",Icons.Default.MenuBook),
-        Category("Coding",Icons.Default.Code),
-        Category("Kotlin",Icons.Default.Code),
-        Category("JetPack Compose",Icons.Default.Android),
-        Category("MVVM & Architecture",Icons.Default.AccountTree),
-        Category("Coroutines",Icons.Default.Sync),
-        Category("Retrofit_API",Icons.Default.Cloud),
-        Category("Room Database",Icons.Default.Storage),
-        Category("Android Basics",Icons.Default.PhoneAndroid),
-        Category("System Design",Icons.Default.Settings),
-        Category("Firebase",Icons.Default.Sync),
-        Category("Hilt",Icons.Default.Sync),
-        Category("Flow & StateFlow",Icons.Default.Sync),
-        Category("Navigation",Icons.Default.Sync)
-
+//    val categories = listOf(
+//        Category("Guide",Icons.Default.MenuBook),
+//        Category("Coding",Icons.Default.Code),
+//        Category("Kotlin",Icons.Default.Code),
+//        Category("JetPack Compose",Icons.Default.Android),
+//        Category("MVVM & Architecture",Icons.Default.AccountTree),
+//        Category("Coroutines",Icons.Default.Sync),
+//        Category("Retrofit_API",Icons.Default.Cloud),
+//        Category("Room Database",Icons.Default.Storage),
+//        Category("Android Basics",Icons.Default.PhoneAndroid),
+//        Category("System Design",Icons.Default.Settings),
+//        Category("Firebase",Icons.Default.Sync),
+//        Category("Hilt",Icons.Default.Sync),
+//        Category("Flow & StateFlow",Icons.Default.Sync),
+//        Category("Navigation",Icons.Default.Sync)
+//
+//    )
+    val modules = listOf(
+        Category("MCQ",Icons.Default.MenuBook),
+        Category("Theory", Icons.Default.AccountTree),
+        Category("Coding", Icons.Default.Code),
+        Category("Guide", Icons.Default.MenuBook),
+        Category("HR", Icons.Default.PhoneAndroid)
     )
     Box(modifier = Modifier.fillMaxSize()
         .background(
@@ -124,8 +131,8 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
             }
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Categories",
-                fontSize = 24.sp,
+            Text(text = "Choose Module",
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White)
             Spacer(modifier = Modifier.height(6.dp))
@@ -136,18 +143,21 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.padding(2.dp)
             ) {
-                items(categories){category->
-                    CategoryCard(category) {
-                        if(category.title== "Guide"){
-                            navController.navigate("guide")
-                        }
-                        else if(category.title == "Coding"){
-                            navController.navigate("coding/${category.title}")
-                        }
-                        else{
-                            val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")
-                            navController.navigate("questions/${encoded}")
-                        }
+                items(modules){module->
+                    CategoryCard(module) {
+//                        if(module.title== "Guide"){
+//                            navController.navigate("guide")
+//                        }
+//                        else if(module.title == "Coding"){
+//                            navController.navigate("coding/${module.title}")
+//                        }
+//                        else{
+//                            val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")
+//                            navController.navigate("questions/${encoded}")
+//                        }
+                        val encoded = java.net.URLEncoder.encode(module.title, "UTF-8")
+                        navController.navigate("categoryGroup/${encoded}")
+
                     }
 
                 }

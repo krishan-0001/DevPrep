@@ -1,0 +1,12 @@
+[
+  {
+    "title": "What is Kotlin?",
+    "content": "Kotlin is a modern programming language used for Android development...",
+    "category": "Kotlin"
+  },
+  {
+    "title": "What is MVVM?",
+    "content": "MVVM is an architecture pattern...",
+    "category": "MVVM"
+  }
+]

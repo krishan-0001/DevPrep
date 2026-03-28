@@ -8,6 +8,8 @@ import com.krish.devprep.data.dao.CodingDao
 import com.krish.devprep.data.dao.GuideDao
 import com.krish.devprep.data.dao.QuestionDao
 import com.krish.devprep.data.dao.QuizStatsDao
+import com.krish.devprep.data.dao.TheoryDao
+import kotlin.jvm.java
 
 class AppViewModelFactory(
     private val questionDao: QuestionDao,
@@ -15,6 +17,7 @@ class AppViewModelFactory(
     private val categoryStatsDao: CategoryStatsDao,
     private val guideDao: GuideDao,
     private val codingDao: CodingDao,
+    private val theoryDao: TheoryDao,
     private val context: Context
 ) : ViewModelProvider.Factory {
 
@@ -36,6 +39,11 @@ class AppViewModelFactory(
                 CodingViewModel(
                     codingDao,
                     context
+                ) as T
+            }
+            modelClass.isAssignableFrom(TheoryViewModel::class.java) -> {
+                TheoryViewModel(
+                    theoryDao
                 ) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class")

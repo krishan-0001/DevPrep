@@ -1,6 +1,7 @@
 package com.krish.devprep.navigation
 
 import android.R.attr.category
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -14,7 +15,9 @@ import com.krish.devprep.data.viewmodel.GuideViewModel
 import com.krish.devprep.data.viewmodel.QuestionViewModel
 import com.krish.devprep.data.viewmodel.AppViewModelFactory
 import com.krish.devprep.data.viewmodel.CodingViewModel
+import com.krish.devprep.data.viewmodel.TheoryViewModel
 import com.krish.devprep.screens.BookMarkScreen
+import com.krish.devprep.screens.CategoryGroupScreen
 import com.krish.devprep.screens.CodingScreen
 import com.krish.devprep.screens.GuideScreen
 import com.krish.devprep.screens.HomeScreen
@@ -26,6 +29,7 @@ import com.krish.devprep.screens.QuestionScreen
 import com.krish.devprep.screens.ResultScreen
 import com.krish.devprep.screens.SignUpScreen
 import com.krish.devprep.screens.SplashScreen
+import com.krish.devprep.screens.TheoryScreen
 import java.net.URLDecoder
 
 @Composable
@@ -39,11 +43,14 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         codingDao = db.codingDao(),
         quizStatsDao = db.quizStatsDao(),
         categoryStatsDao = db.categoryStatsDao(),
+        theoryDao = db.theoryDao(),
         context = context
     )
     val questionViewModel: QuestionViewModel = viewModel(factory = factory)
     val guideViewModel: GuideViewModel = viewModel(factory = factory)
     val codingViewModel: CodingViewModel = viewModel(factory = factory)
+    val theoryViewModel: TheoryViewModel = viewModel(factory = factory)
+
 
 
     val startDestination = Routes.SPLASH
@@ -54,6 +61,23 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
     ){
         composable(Routes.HOME){
             HomeScreen(navController, questionViewModel)
+        }
+        composable("categoryGroup/{module}") { backStack ->
+            val module = backStack.arguments?.getString("module") ?: ""
+            CategoryGroupScreen(module, navController)
+        }
+        composable("content/{module}/{category}") { backStack ->
+            val module = backStack.arguments?.getString("module")!!
+            val category = backStack.arguments?.getString("category")!!
+            val categoryDecoded = URLDecoder.decode(category, "UTF-8")
+
+            // Decide which screen to show
+            when (module) {
+                "MCQ" -> QuestionScreen(category, navController, questionViewModel)
+                "Theory" -> TheoryScreen(navController, category = categoryDecoded,viewModel = theoryViewModel)
+                "Coding" -> CodingScreen(category,viewModel = codingViewModel)
+                else -> Text("Invalid module")
+            }
         }
         composable(Routes.BOOKMARK){
             BookMarkScreen(questionViewModel)

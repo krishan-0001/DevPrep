@@ -28,6 +28,7 @@ object DatabaseProvider {
                         database.questionDao().insertAll(JsonLoader.loadQuestions(context))
                         database.guideDao().insertAll(JsonLoader.loadGuides(context))
                         database.codingDao().insertAll(JsonLoader.loadCodingQuestions(context))
+                        database.theoryDao().insertTheory(JsonLoader.loadTheory(context))
                     }
                 }
             }).build().also { instance = it }

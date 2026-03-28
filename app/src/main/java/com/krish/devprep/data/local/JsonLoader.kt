@@ -30,4 +30,11 @@ object JsonLoader {
         val type = object : TypeToken<List<CodingQuestionEntity>>() {}.type
         return Gson().fromJson(jsonString, type)
     }
+    fun loadTheory(context: Context): List<TheoryEntity> {
+        val jsonString = context.assets.open("theory_data.json")
+            .bufferedReader()
+            .use { it.readText() }
+        val type = object : TypeToken<List<TheoryEntity>>() {}.type
+        return Gson().fromJson(jsonString, type)
+    }
 }
