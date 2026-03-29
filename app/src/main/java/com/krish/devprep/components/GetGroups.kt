@@ -15,6 +15,15 @@ fun getGroups(module: String): List<CategoryGroup>{
             CategoryGroup("DSA", listOf("Arrays", "Strings")),
             CategoryGroup("Android Coding", listOf("UI", "State Management"))
         )
+        "HR" -> listOf(
+            CategoryGroup("Basics", listOf("Introduction", "Strengths & Weakness")),
+            CategoryGroup("Behavioral", listOf("Challenges", "Teamwork")),
+            CategoryGroup("Company", listOf("Company Questions")),
+            CategoryGroup("Situational", listOf("Problem Solving")),
+            CategoryGroup("Resume", listOf("Projects")),
+            CategoryGroup("Personality", listOf("Communication")),
+            CategoryGroup("Technical Round", listOf("Core Concepts","Project Questions", "Android Questions", "Coding Logic", "Debugging"))
+        )
         else -> emptyList()
 
     }

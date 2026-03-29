@@ -1,6 +1,5 @@
 package com.krish.devprep.navigation
 
-import android.R.attr.category
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,18 +8,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.krish.devprep.data.database.AppDatabase
 import com.krish.devprep.data.database.DatabaseProvider
 import com.krish.devprep.data.viewmodel.GuideViewModel
 import com.krish.devprep.data.viewmodel.QuestionViewModel
 import com.krish.devprep.data.viewmodel.AppViewModelFactory
 import com.krish.devprep.data.viewmodel.CodingViewModel
+import com.krish.devprep.data.viewmodel.HrViewModel
 import com.krish.devprep.data.viewmodel.TheoryViewModel
 import com.krish.devprep.screens.BookMarkScreen
 import com.krish.devprep.screens.CategoryGroupScreen
 import com.krish.devprep.screens.CodingScreen
 import com.krish.devprep.screens.GuideScreen
 import com.krish.devprep.screens.HomeScreen
+import com.krish.devprep.screens.HrScreen
 import com.krish.devprep.screens.LeaderBoardScreen
 import com.krish.devprep.screens.LoginScreen
 import com.krish.devprep.screens.ProfileScreen
@@ -44,12 +44,15 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
         quizStatsDao = db.quizStatsDao(),
         categoryStatsDao = db.categoryStatsDao(),
         theoryDao = db.theoryDao(),
+        hrDao = db.hrDao(),
         context = context
     )
     val questionViewModel: QuestionViewModel = viewModel(factory = factory)
     val guideViewModel: GuideViewModel = viewModel(factory = factory)
     val codingViewModel: CodingViewModel = viewModel(factory = factory)
     val theoryViewModel: TheoryViewModel = viewModel(factory = factory)
+    val hrViewModel: HrViewModel = viewModel(factory = factory)
+
 
 
 
@@ -73,11 +76,18 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
 
             // Decide which screen to show
             when (module) {
-                "MCQ" -> QuestionScreen(category, navController, questionViewModel)
-                "Theory" -> TheoryScreen(navController, category = categoryDecoded,viewModel = theoryViewModel)
-                "Coding" -> CodingScreen(category,viewModel = codingViewModel)
+                "MCQ" -> QuestionScreen(category = categoryDecoded, navController, questionViewModel)
+                "Theory" -> TheoryScreen(category = categoryDecoded,viewModel = theoryViewModel)
+                "Coding" -> CodingScreen(category = categoryDecoded,viewModel = codingViewModel)
+                "HR" -> HrScreen(category = categoryDecoded,viewModel = hrViewModel)
                 else -> Text("Invalid module")
             }
+        }
+        composable("hr/{category"){ backStack->
+            val category = backStack.arguments?.getString("category")?: ""
+            val categoryDecoded = URLDecoder.decode(category, "UTF-8")
+            HrScreen(categoryDecoded, hrViewModel)
+
         }
         composable(Routes.BOOKMARK){
             BookMarkScreen(questionViewModel)

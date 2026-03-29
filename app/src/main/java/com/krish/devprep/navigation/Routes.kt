@@ -14,8 +14,7 @@ object Routes {
     const val SPLASH = "splash"
     const val GUIDE = "guide"
     const val CODING = "coding"
-    const val CATEGORY_GROUP = "categoryGroup"
-    const val CONTENT = "content/{module}/{category}"
+
 }
 
 

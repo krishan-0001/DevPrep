@@ -14,7 +14,8 @@ interface TheoryDao{
     suspend fun insertTheory(theory: List<TheoryEntity>)
     @Query("SELECT * FROM theory WHERE category = :category")
     suspend fun getTheoryByCategory(category: String): List<Theory>
-
+    @Query("SELECT * FROM theory")
+    suspend fun getAllTheory(): List<Theory>
     @Query("SELECT * FROM theory WHERE id = :id")
     suspend fun getTheoryById(id: Int): Theory
 }

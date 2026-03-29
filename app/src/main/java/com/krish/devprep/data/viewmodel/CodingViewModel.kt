@@ -53,13 +53,16 @@ class CodingViewModel(
     fun loadQuestions(category: String){
 
         viewModelScope.launch(Dispatchers.IO) {
+            val cleanCategory = category.trim()
                 val data = JsonLoader.loadCodingQuestions(context)
+                 //dao.clearAll()
                 dao.insertAll(data)
-            val result = if (category == "Coding") {
+            val result = if (cleanCategory == "Coding") {
                 dao.getAll()
             } else {
-                dao.getByCategory(category)
+                dao.getByCategory(cleanCategory)
             }
+           // val result = dao.getAll()
             _questions.value = result
         }
     }

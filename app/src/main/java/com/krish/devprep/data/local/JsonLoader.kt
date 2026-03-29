@@ -31,10 +31,19 @@ object JsonLoader {
         return Gson().fromJson(jsonString, type)
     }
     fun loadTheory(context: Context): List<TheoryEntity> {
-        val jsonString = context.assets.open("theory_data.json")
+        val jsonString = context.assets.open("theory.json")
             .bufferedReader()
             .use { it.readText() }
         val type = object : TypeToken<List<TheoryEntity>>() {}.type
         return Gson().fromJson(jsonString, type)
+    }
+
+    fun loadHr(context: Context): List<HrEntity>{
+        val jsonString = context.assets.open("hr_questions.json")
+            .bufferedReader()
+            .use { it.readText() }
+        val type = object : TypeToken<List<HrEntity>>() {}.type
+        return Gson().fromJson(jsonString, type)
+
     }
 }

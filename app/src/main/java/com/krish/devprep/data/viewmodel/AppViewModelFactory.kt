@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.krish.devprep.data.dao.CategoryStatsDao
 import com.krish.devprep.data.dao.CodingDao
 import com.krish.devprep.data.dao.GuideDao
+import com.krish.devprep.data.dao.HrDao
 import com.krish.devprep.data.dao.QuestionDao
 import com.krish.devprep.data.dao.QuizStatsDao
 import com.krish.devprep.data.dao.TheoryDao
@@ -18,6 +19,7 @@ class AppViewModelFactory(
     private val guideDao: GuideDao,
     private val codingDao: CodingDao,
     private val theoryDao: TheoryDao,
+    private val hrDao: HrDao,
     private val context: Context
 ) : ViewModelProvider.Factory {
 
@@ -43,7 +45,14 @@ class AppViewModelFactory(
             }
             modelClass.isAssignableFrom(TheoryViewModel::class.java) -> {
                 TheoryViewModel(
-                    theoryDao
+                    theoryDao,
+                    context
+                ) as T
+            }
+            modelClass.isAssignableFrom(HrViewModel::class.java) -> {
+                HrViewModel(
+                    hrDao,
+                    context
                 ) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class")

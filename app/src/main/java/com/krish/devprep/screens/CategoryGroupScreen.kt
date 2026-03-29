@@ -52,20 +52,19 @@ fun  CategoryGroupScreen(module: String, navController: NavHostController){
         LazyColumn(modifier = Modifier.padding(16.dp)) {
 
             itemsIndexed(groups){index ,group->
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Text(text = "${index+1}. " + group.title,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold)
-                // Spacer(modifier = Modifier.height(8.dp))
 
-                LazyRow(){
+                LazyRow{
 
                     items(group.categories){ category->
                         Card(modifier = Modifier.padding(8.dp)
                             .clickable{
-                                val encoded = java.net.URLEncoder.encode(category, "UTF-8")
-                                navController.navigate("content/$module/${encoded}")
+                                val categoryEncoded = java.net.URLEncoder.encode(category, "UTF-8")
+                                navController.navigate("content/$module/${categoryEncoded}")
                             }
                         ) {
                             Box(modifier = Modifier.fillMaxSize()

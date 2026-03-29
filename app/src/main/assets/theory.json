@@ -1,12 +1,416 @@
 [
   {
+    "id": 1,
     "title": "What is Kotlin?",
-    "content": "Kotlin is a modern programming language used for Android development...",
+    "content": "Kotlin is a modern, statically typed programming language developed by JetBrains and officially supported by Google for Android development. It is designed to be concise, expressive, and safe, reducing common programming errors such as null pointer exceptions. Kotlin runs on the JVM and is fully interoperable with Java, allowing developers to use existing Java libraries seamlessly. It supports functional programming features like lambdas, higher-order functions, and immutability. Due to its readability and reduced boilerplate code, Kotlin improves developer productivity significantly. It is now the preferred language for Android development.",
     "category": "Kotlin"
   },
   {
-    "title": "What is MVVM?",
-    "content": "MVVM is an architecture pattern...",
+    "id": 2,
+    "title": "val vs var in Kotlin",
+    "content": "In Kotlin, val and var are used to declare variables, but they differ in mutability. A variable declared with val is immutable, meaning its value cannot be reassigned after initialization, similar to final in Java. On the other hand, var is mutable and allows value reassignment. Using val is recommended whenever possible as it promotes safer and more predictable code. It also helps in avoiding accidental modifications, making applications more stable. Choosing between val and var is an important aspect of writing clean Kotlin code.",
+    "category": "Kotlin"
+  },
+  {
+    "id": 3,
+    "title": "What are data classes?",
+    "content": "Data classes in Kotlin are specially designed to hold data and automatically provide useful methods such as equals(), hashCode(), toString(), and copy(). They reduce boilerplate code significantly compared to traditional classes. A data class must have at least one primary constructor parameter. These classes are commonly used in models, API responses, and database entities. They improve readability and maintainability of code. Data classes also support destructuring, allowing easy extraction of values.",
+    "category": "Kotlin"
+  },
+  {
+    "id": 4,
+    "title": "What is Android Activity?",
+    "content": "An Activity in Android represents a single screen with a user interface. It acts as an entry point for user interaction and manages UI components like buttons, text fields, and images. Each Activity has a lifecycle managed by the system, which includes states like created, started, resumed, paused, and destroyed. Understanding lifecycle methods is crucial to avoid memory leaks and crashes. Activities communicate with each other using Intents. They form the backbone of Android applications.",
+    "category": "Android Basics"
+  },
+  {
+    "id": 5,
+    "title": "What is Activity Lifecycle?",
+    "content": "The Activity lifecycle defines the different states an Activity goes through during its existence. Key methods include onCreate(), onStart(), onResume(), onPause(), onStop(), and onDestroy(). These methods help developers manage resources efficiently and handle UI updates. For example, onPause() is used to save data, while onDestroy() is used to release resources. Proper lifecycle handling prevents crashes and ensures smooth user experience. It is one of the most important concepts in Android development.",
+    "category": "Android Basics"
+  },
+  {
+    "id": 6,
+    "title": "What is Jetpack Compose?",
+    "content": "Jetpack Compose is a modern UI toolkit for building native Android interfaces using a declarative approach. Instead of defining UI in XML, developers write UI using Kotlin functions. Compose simplifies UI development by reducing boilerplate and improving readability. It automatically updates UI when state changes, making it reactive. It also integrates well with existing Android apps. Compose is now the future of Android UI development.",
+    "category": "Jetpack Compose"
+  },
+  {
+    "id": 7,
+    "title": "What is recomposition in Compose?",
+    "content": "Recomposition is the process of updating the UI in Jetpack Compose when the state changes. Instead of redrawing the entire UI, Compose efficiently updates only the affected components. This makes the UI faster and more optimized. Recomposition is triggered when a state variable changes. Developers should design composables carefully to avoid unnecessary recompositions. Understanding recomposition is key to building performant apps.",
+    "category": "Jetpack Compose"
+  },
+  {
+    "id": 8,
+    "title": "What is Navigation Component?",
+    "content": "Navigation Component is a Jetpack library that simplifies app navigation. It provides a consistent way to handle navigation between screens using NavController and NavGraph. It manages the back stack automatically and reduces boilerplate code. Navigation Component also supports deep links and animations. It improves code readability and maintainability. It is widely used in modern Android apps.",
+    "category": "Navigation"
+  },
+  {
+    "id": 9,
+    "title": "What is MVVM architecture?",
+    "content": "MVVM stands for Model-View-ViewModel and is a design pattern used to separate concerns in an application. The Model handles data, the View displays UI, and the ViewModel manages business logic. This separation makes the code more maintainable and testable. ViewModel survives configuration changes like screen rotation. MVVM also works well with LiveData and Flow. It is widely used in modern Android development.",
     "category": "MVVM"
-  }
+  },
+  {
+    "id": 10,
+    "title": "What is Hilt?",
+    "content": "Hilt is a dependency injection library built on top of Dagger that simplifies DI in Android apps. It automatically provides dependencies and reduces boilerplate code. Hilt uses annotations like @HiltAndroidApp and @Inject. It improves code scalability and testability. Dependency injection helps in managing object creation efficiently. Hilt is now the recommended DI solution for Android.",
+    "category": "Hilt"
+  },
+  {
+    "id": 11,
+    "title": "What is Retrofit?",
+    "content": "Retrofit is a type-safe HTTP client used for making network requests in Android. It uses annotations to define API endpoints and supports JSON parsing with converters like Gson. Retrofit works seamlessly with coroutines for asynchronous calls. It simplifies API integration and error handling. It is widely used in production apps. Retrofit improves code readability and maintainability.",
+    "category": "Retrofit_API"
+  },
+  {
+    "id": 12,
+    "title": "What is Room Database?",
+    "content": "Room is a persistence library that provides an abstraction layer over SQLite. It simplifies database operations using annotations like @Entity, @Dao, and @Database. Room ensures compile-time verification of SQL queries. It integrates well with LiveData and Flow. It helps in building scalable and maintainable apps. Room is the recommended database solution for Android.",
+    "category": "Room Database"
+  },
+  {
+    "id": 13,
+    "title": "What is Firebase?",
+    "content": "Firebase is a platform by Google that provides backend services like authentication, database, analytics, and cloud storage. It allows developers to build scalable apps without managing servers. Firebase supports real-time data syncing using Firestore. It also provides crash reporting and performance monitoring. It is widely used in modern mobile applications. Firebase accelerates development significantly.",
+    "category": "Firebase"
+  },
+  {
+    "id": 14,
+    "title": "What are Coroutines?",
+    "content": "Coroutines are a lightweight way to handle asynchronous programming in Kotlin. They allow writing non-blocking code in a sequential manner. Coroutines run on different dispatchers like Main, IO, and Default. They improve performance and responsiveness of apps. Coroutines are lifecycle-aware when used with ViewModel. They are widely used for network and database operations.",
+    "category": "Coroutines"
+  },
+  {
+    "id": 15,
+    "title": "What is Flow?",
+    "content": "Flow is a part of Kotlin Coroutines used to handle streams of data asynchronously. It emits multiple values over time and supports operators like map, filter, and collect. Flow is cold by default, meaning it starts emitting only when collected. It is useful for handling real-time data. Flow works well with MVVM architecture. It is preferred over LiveData in many cases.",
+    "category": "Flow & StateFlow"
+  },
+    {
+      "id": 16,
+      "title": "What is Retrofit in Android?",
+      "content": "Retrofit is a type-safe HTTP client used in Android for making network requests. It simplifies API integration by converting REST APIs into Kotlin interfaces. Using annotations like @GET, @POST, and @Query, developers define endpoints cleanly. Retrofit supports coroutines and suspend functions for asynchronous operations. It also integrates with converters like Gson or Moshi for JSON parsing. This reduces boilerplate code and improves readability. It is widely used in production apps for networking.",
+      "category": "Retrofit_API"
+    },
+    {
+      "id": 17,
+      "title": "What are HTTP methods in API?",
+      "content": "HTTP methods define the type of operation performed on a resource. Common methods include GET (fetch data), POST (create data), PUT (update data), and DELETE (remove data). Each method follows REST principles for structured communication. Retrofit uses annotations to map these methods easily. Understanding HTTP methods is essential for backend communication. It helps in designing scalable and maintainable APIs.",
+      "category": "Retrofit_API"
+    },
+    {
+      "id": 18,
+      "title": "What is Room Database?",
+      "content": "Room is an Android Jetpack library that provides an abstraction layer over SQLite. It simplifies database operations using annotations and compile-time checks. Room consists of three main components: Entity, DAO, and Database. It ensures type safety and reduces boilerplate SQL code. Room also supports coroutines and Flow for reactive programming. It is recommended for offline data storage in Android apps.",
+      "category": "Room Database"
+    },
+    {
+      "id": 19,
+      "title": "What is DAO in Room?",
+      "content": "DAO stands for Data Access Object and defines methods to access the database. It uses annotations like @Insert, @Query, @Update, and @Delete. DAO abstracts SQL queries and provides a clean API to interact with the database. It ensures separation of concerns and improves maintainability. DAO methods can return LiveData or Flow for reactive updates. This makes it easier to observe data changes in UI.",
+      "category": "Room Database"
+    },
+    {
+      "id": 20,
+      "title": "What is Firebase?",
+      "content": "Firebase is a backend-as-a-service platform by Google that provides various tools for app development. It includes services like Authentication, Firestore, Realtime Database, Analytics, and Cloud Messaging. Firebase eliminates the need to build a custom backend. It supports real-time data synchronization across devices. Integration with Android is simple and well-documented. It is widely used in startups and scalable applications.",
+      "category": "Firebase"
+    },
+    {
+      "id": 21,
+      "title": "What is Firestore?",
+      "content": "Firestore is a NoSQL cloud database provided by Firebase. It stores data in collections and documents instead of tables. It supports real-time updates, meaning UI updates automatically when data changes. Firestore is scalable and flexible for modern app requirements. It also provides offline support and automatic syncing. Security rules allow fine-grained access control. It is ideal for real-time apps like chats.",
+      "category": "Firebase"
+    },
+    {
+      "id": 22,
+      "title": "What are Coroutines?",
+      "content": "Coroutines are a concurrency design pattern used in Kotlin for asynchronous programming. They allow writing async code in a sequential manner. Coroutines are lightweight compared to threads. They help in performing background tasks like API calls without blocking the UI thread. viewModelScope and lifecycleScope are commonly used scopes. Coroutines improve performance and readability of code.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 23,
+      "title": "What is suspend function?",
+      "content": "A suspend function is a function that can be paused and resumed without blocking the thread. It is used with coroutines to perform asynchronous operations. Suspend functions must be called inside a coroutine or another suspend function. They simplify async programming compared to callbacks. Retrofit and Room support suspend functions directly. This makes code clean and easy to maintain.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 24,
+      "title": "What is Flow in Kotlin?",
+      "content": "Flow is a cold asynchronous data stream in Kotlin. It emits multiple values over time. Flow is part of Kotlin Coroutines and is used for reactive programming. It supports operators like map, filter, and collect. Flow is useful for handling streams like network updates or database changes. It helps in writing clean and structured async code.",
+      "category": "Flow & StateFlow"
+    },
+    {
+      "id": 25,
+      "title": "What is StateFlow?",
+      "content": "StateFlow is a state-holder observable flow that emits current and updated values. It is a hot stream, meaning it always has a value. It is commonly used with ViewModel to manage UI state. StateFlow works well with Jetpack Compose. Unlike LiveData, it is coroutine-based and more flexible. It is preferred in modern Android development.",
+      "category": "Flow & StateFlow"
+    },
+
+    {
+      "id": 26,
+      "title": "What is LiveData?",
+      "content": "LiveData is a lifecycle-aware observable data holder in Android. It ensures that UI components only receive updates when they are active. This prevents memory leaks and crashes. LiveData automatically manages lifecycle states. It is commonly used with ViewModel in MVVM architecture. However, StateFlow is now preferred in modern apps.",
+      "category": "MVVM"
+    },
+    {
+      "id": 27,
+      "title": "Difference between LiveData and StateFlow",
+      "content": "LiveData is lifecycle-aware while StateFlow is coroutine-based. StateFlow always has a value, but LiveData can be null. StateFlow works seamlessly with Kotlin Flow APIs. LiveData is easier for beginners but less flexible. StateFlow is preferred for modern apps due to better control and performance. Both are used for observing UI data.",
+      "category": "Flow & StateFlow"
+    },
+    {
+      "id": 28,
+      "title": "What is View Binding?",
+      "content": "View Binding is a feature that allows safe interaction with views. It generates a binding class for each XML layout. This removes the need for findViewById. It improves type safety and reduces boilerplate code. It is faster and safer than traditional methods. It is widely used in Android apps.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 29,
+      "title": "What is Dependency Injection?",
+      "content": "Dependency Injection is a design pattern where dependencies are provided instead of created manually. It improves testability and modularity. DI reduces tight coupling between classes. Hilt is commonly used for DI in Android. It simplifies object creation and management. It is an important concept in scalable apps.",
+      "category": "Hilt"
+    },
+    {
+      "id": 30,
+      "title": "What is System Design?",
+      "content": "System Design involves designing scalable and reliable systems. It focuses on architecture, databases, APIs, and scalability. It includes concepts like load balancing, caching, and microservices. Good system design ensures performance and fault tolerance. It is important for backend-heavy applications.",
+      "category": "System Design"
+    },
+
+    {
+      "id": 31,
+      "title": "What is Activity?",
+      "content": "An Activity represents a single screen in an Android app. It acts as an entry point for user interaction. Activities follow a lifecycle managed by the system. They handle UI and user actions. Multiple activities can work together to form an app. Understanding activities is fundamental in Android.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 32,
+      "title": "What is Fragment?",
+      "content": "Fragment is a reusable UI component inside an activity. It has its own lifecycle but depends on the activity. Fragments help build flexible UI designs. They are widely used in Navigation Component. They improve modularity and reusability.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 33,
+      "title": "What is NavController?",
+      "content": "NavController is responsible for managing app navigation. It handles navigation actions and backstack. It works with NavHost and NavGraph. Developers use it to navigate between screens. It simplifies navigation handling in Android apps.",
+      "category": "Navigation"
+    },
+    {
+      "id": 34,
+      "title": "What is Jetpack?",
+      "content": "Jetpack is a suite of libraries by Google to help build Android apps. It includes components like Room, Navigation, ViewModel, and Compose. Jetpack promotes best practices and reduces boilerplate code. It helps in building scalable and maintainable apps.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 35,
+      "title": "What is Compose Layout?",
+      "content": "Compose Layout defines how UI elements are arranged. Examples include Column, Row, and Box. Layouts are built using composable functions. They are flexible and declarative. Compose layouts simplify UI building compared to XML.",
+      "category": "Jetpack Compose"
+    },
+
+    {
+      "id": 36,
+      "title": "What is Repository Pattern?",
+      "content": "Repository acts as a bridge between data sources and ViewModel. It provides clean API for data operations. It hides implementation details from UI. It supports both local and remote data sources. It improves code structure and testability.",
+      "category": "MVVM"
+    },
+    {
+      "id": 37,
+      "title": "What is Sealed Class?",
+      "content": "Sealed classes are used to represent restricted class hierarchies. They are useful for representing UI states like Loading, Success, and Error. They ensure type safety in when expressions. Sealed classes improve readability and maintainability.",
+      "category": "Kotlin"
+    },
+    {
+      "id": 38,
+      "title": "What is Lambda Function?",
+      "content": "Lambda is an anonymous function in Kotlin. It is used for concise function definitions. Lambdas are commonly used with higher-order functions. They improve code readability and reduce boilerplate. Kotlin heavily uses lambdas.",
+      "category": "Kotlin"
+    },
+    {
+      "id": 39,
+      "title": "What is Inline Function?",
+      "content": "Inline functions reduce overhead of function calls. The compiler replaces function call with actual code. It improves performance when using lambdas. Inline functions are useful in higher-order functions.",
+      "category": "Kotlin"
+    },
+    {
+      "id": 40,
+      "title": "What is Scope Function?",
+      "content": "Scope functions like let, apply, run, also, and with are used to execute code within object context. They improve readability and reduce repetitive code. Each function has a different purpose. They are widely used in Kotlin.",
+      "category": "Kotlin"
+    },
+
+    {
+      "id": 41,
+      "title": "What is Recomposition?",
+      "content": "Recomposition is the process of updating UI when state changes in Compose. Compose intelligently updates only affected parts. This improves performance and efficiency. Proper state management is key for recomposition.",
+      "category": "Jetpack Compose"
+    },
+    {
+      "id": 42,
+      "title": "What is remember in Compose?",
+      "content": "remember is used to store state across recompositions. It prevents state from resetting. It is commonly used with mutableStateOf. It improves UI consistency and performance.",
+      "category": "Jetpack Compose"
+    },
+    {
+      "id": 43,
+      "title": "What is MutableState?",
+      "content": "MutableState is a state holder in Compose. It triggers recomposition when value changes. It is used with mutableStateOf. It helps manage UI state efficiently.",
+      "category": "Jetpack Compose"
+    },
+    {
+      "id": 44,
+      "title": "What is BackStack?",
+      "content": "BackStack stores navigation history. It allows users to go back to previous screens. Navigation Component manages it automatically. Developers can customize behavior.",
+      "category": "Navigation"
+    },
+    {
+      "id": 45,
+      "title": "What is API?",
+      "content": "API is a set of rules for communication between systems. It allows apps to fetch or send data. REST APIs are commonly used. APIs are essential for modern applications.",
+      "category": "Retrofit_API"
+    },
+    {
+      "id": 46,
+      "title": "What is JSON?",
+      "content": "JSON is a lightweight data format used for data exchange. It is easy to read and write. APIs commonly return JSON responses. Libraries like Gson parse JSON into objects.",
+      "category": "Retrofit_API"
+    },
+    {
+      "id": 47,
+      "title": "What is Caching?",
+      "content": "Caching stores frequently used data for faster access. It improves performance and reduces network calls. Examples include memory cache and disk cache. It is important in system design.",
+      "category": "System Design"
+    },
+    {
+      "id": 48,
+      "title": "What is Thread?",
+      "content": "Thread is a unit of execution in a program. Android uses main thread for UI. Heavy work should run on background threads. Coroutines simplify thread management.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 49,
+      "title": "What is Dispatchers.IO?",
+      "content": "Dispatchers.IO is used for IO operations like network or database. It uses optimized thread pool. It prevents blocking main thread. It improves performance.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 50,
+      "title": "What is SharedFlow?",
+      "content": "SharedFlow is a hot flow used to emit events. Unlike StateFlow, it does not hold a state. It is useful for one-time events like navigation or toast messages.",
+      "category": "Flow & StateFlow"
+    },
+    {
+      "id": 51,
+      "title": "What is Exception Handling in Coroutines?",
+      "content": "Exception handling in coroutines is done using try-catch or CoroutineExceptionHandler. It ensures app stability. Proper handling avoids crashes. It is important for production apps.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 51,
+      "title": "What are higher-order functions in Kotlin?",
+      "content": "Higher-order functions are functions that can take other functions as parameters or return a function as a result. They are a key feature of functional programming in Kotlin. This allows developers to write more abstract, reusable, and concise code. Common examples include map, filter, and reduce operations on collections. Higher-order functions improve readability and reduce boilerplate logic. Lambdas are often used with them to pass behavior dynamically.",
+      "category": "Kotlin"
+    },
+    {
+      "id": 52,
+      "title": "What is null safety in Kotlin?",
+      "content": "Null safety is one of Kotlin’s core features designed to eliminate NullPointerException errors. Kotlin distinguishes between nullable and non-nullable types at the type system level. A variable must be explicitly marked with ? if it can hold null. Safe calls (?.), Elvis operator (?:), and non-null assertion (!!) are used to handle null values. This makes the code safer and more predictable. It reduces runtime crashes significantly in Android apps.",
+      "category": "Kotlin"
+    },
+    {
+      "id": 53,
+      "title": "What is Intent in Android?",
+      "content": "Intent is a messaging object used to request an action from another app component. It is commonly used to start activities, services, or send broadcasts. There are two types: explicit intents (target specific component) and implicit intents (system decides component). Intents can carry data using extras. They are fundamental for communication between different parts of an Android app. Understanding intents is essential for navigation and feature integration.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 54,
+      "title": "What are Fragments in Android?",
+      "content": "Fragments are reusable portions of UI that can be combined within an activity. They have their own lifecycle but are dependent on the activity lifecycle. Fragments help in building flexible UI layouts, especially for tablets and large screens. They allow dynamic UI changes without recreating activities. Navigation Component is often used to manage fragment transactions. They improve modularity and code reusability.",
+      "category": "Android Basics"
+    },
+    {
+      "id": 55,
+      "title": "What is Compose State?",
+      "content": "State in Jetpack Compose represents data that can change over time and affects UI. Compose automatically recomposes UI when state changes. Common state holders include mutableStateOf, remember, and StateFlow. Managing state properly ensures efficient UI updates. State hoisting is used to move state up the composable hierarchy. Good state management improves performance and maintainability.",
+      "category": "Jetpack Compose"
+    },
+    {
+      "id": 56,
+      "title": "What is Modifier in Compose?",
+      "content": "Modifier is a fundamental concept in Jetpack Compose used to decorate or modify UI elements. It allows you to control layout, appearance, and interaction behavior. Examples include padding, background, click handling, and size adjustments. Modifiers are immutable and chainable, making them highly flexible. They follow a declarative pattern and are applied in order. Proper use of modifiers is essential for building responsive UI.",
+      "category": "Jetpack Compose"
+    },
+    {
+      "id": 57,
+      "title": "What is BackStack in Navigation?",
+      "content": "BackStack is a stack that keeps track of navigation history in an app. When navigating between screens, each destination is added to the stack. Pressing the back button pops the last entry from the stack. Navigation Component manages backstack automatically. Developers can also control it using popUpTo and inclusive flags. Proper backstack management ensures smooth user experience.",
+      "category": "Navigation"
+    },
+    {
+      "id": 58,
+      "title": "What is Clean Architecture?",
+      "content": "Clean Architecture is a design pattern that separates an app into layers like presentation, domain, and data. Each layer has a specific responsibility and communicates through interfaces. It promotes testability, scalability, and maintainability. Business logic is kept independent of frameworks. This architecture helps in writing modular and reusable code. It is widely used in modern Android apps.",
+      "category": "MVVM"
+    },
+    {
+      "id": 59,
+      "title": "What is Repository Pattern?",
+      "content": "Repository pattern acts as a mediator between data sources and the ViewModel. It abstracts data operations and provides a clean API to the rest of the app. Data can come from local database or remote APIs. Repository ensures single source of truth. It improves code separation and testability. It is commonly used with MVVM architecture.",
+      "category": "MVVM"
+    },
+    {
+      "id": 60,
+      "title": "What are Hilt Components?",
+      "content": "Hilt components define the scope and lifecycle of dependencies. Each Android class has a corresponding Hilt component. Examples include ApplicationComponent, ActivityComponent, and ViewModelComponent. These components manage dependency creation and destruction. Scoping ensures efficient memory usage. Hilt simplifies dependency injection compared to manual DI.",
+      "category": "Hilt"
+    },
+    {
+      "id": 61,
+      "title": "What is Load Balancing?",
+      "content": "Load balancing distributes incoming network traffic across multiple servers. It ensures no single server is overloaded. This improves system reliability and performance. Types include round-robin, least connections, and IP hash. Load balancers are essential for scalable systems. They are widely used in backend and cloud architectures.",
+      "category": "System Design"
+    },
+    {
+      "id": 62,
+      "title": "What is API Response Handling?",
+      "content": "API response handling involves processing server responses safely. It includes checking status codes, parsing data, and handling errors. Retrofit provides Response<T> for this purpose. Proper handling avoids crashes and improves UX. Error states like loading, success, and failure should be managed. This is often done using sealed classes.",
+      "category": "Retrofit_API"
+    },
+    {
+      "id": 63,
+      "title": "What is Room Migration?",
+      "content": "Room migration is used when database schema changes. It ensures existing user data is not lost. Developers define migration paths between versions. Room validates schema changes at compile time. Without migration, app may crash or wipe data. Proper migrations are essential for production apps.",
+      "category": "Room Database"
+    },
+    {
+      "id": 64,
+      "title": "What is Firebase Authentication?",
+      "content": "Firebase Authentication provides secure user login functionality. It supports email/password, Google, Facebook, and more. It manages user sessions and tokens automatically. Developers can integrate authentication with minimal backend setup. It also supports anonymous login. It is widely used in modern apps.",
+      "category": "Firebase"
+    },
+    {
+      "id": 65,
+      "title": "What is Coroutine Dispatcher?",
+      "content": "Dispatcher determines which thread a coroutine runs on. Common dispatchers are Main, IO, and Default. Main is used for UI operations, IO for network/database, and Default for CPU work. Choosing correct dispatcher improves performance. Coroutines make async programming simple and efficient. Misuse can lead to performance issues.",
+      "category": "Coroutines"
+    },
+    {
+      "id": 66,
+      "title": "What is Cold vs Hot Flow?",
+      "content": "Cold Flow starts emitting data only when collected. Each collector gets its own stream. Hot Flow emits data regardless of collectors. StateFlow and SharedFlow are examples of hot flows. Cold flows are used for one-time streams. Understanding this helps in managing real-time data effectively.",
+      "category": "Flow & StateFlow"
+    }
+
+
+
+
+
+
+
+
 ]

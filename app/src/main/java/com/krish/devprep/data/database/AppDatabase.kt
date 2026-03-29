@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import com.krish.devprep.data.dao.CategoryStatsDao
 import com.krish.devprep.data.dao.CodingDao
 import com.krish.devprep.data.dao.GuideDao
+import com.krish.devprep.data.dao.HrDao
 import com.krish.devprep.data.dao.QuestionDao
 import com.krish.devprep.data.dao.QuizStatsDao
 import com.krish.devprep.data.dao.TheoryDao
@@ -15,6 +16,7 @@ import com.krish.devprep.data.local.CategoryStatsEntity
 import com.krish.devprep.data.local.CodingQuestionEntity
 import com.krish.devprep.data.local.Converters
 import com.krish.devprep.data.local.GuideEntity
+import com.krish.devprep.data.local.HrEntity
 import com.krish.devprep.data.local.QuestionEntity
 import com.krish.devprep.data.local.QuizStatsEntity
 import com.krish.devprep.data.local.TheoryEntity
@@ -27,8 +29,9 @@ import kotlinx.coroutines.withContext
                CategoryStatsEntity::class,
                GuideEntity::class,
                CodingQuestionEntity::class,
-               TheoryEntity::class],
-    version = 12
+               TheoryEntity::class,
+               HrEntity::class],
+    version = 15
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase(){
@@ -38,6 +41,7 @@ abstract class AppDatabase: RoomDatabase(){
     abstract fun guideDao(): GuideDao
     abstract fun codingDao(): CodingDao
     abstract fun theoryDao(): TheoryDao
+    abstract fun hrDao(): HrDao
 
 
     companion object{
