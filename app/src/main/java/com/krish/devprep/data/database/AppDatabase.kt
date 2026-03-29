@@ -31,7 +31,7 @@ import kotlinx.coroutines.withContext
                CodingQuestionEntity::class,
                TheoryEntity::class,
                HrEntity::class],
-    version = 15
+    version = 16
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase(){

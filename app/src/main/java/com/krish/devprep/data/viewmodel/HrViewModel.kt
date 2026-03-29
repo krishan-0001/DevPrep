@@ -23,6 +23,7 @@ class HrViewModel(
         viewModelScope.launch(Dispatchers.IO) {
 
             val data = JsonLoader.loadHr(context)
+            dao.clearAll()
             dao.insertAll(data)
             val result = if(category=="HR"){
                 dao.getAll()

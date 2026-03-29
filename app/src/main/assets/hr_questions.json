@@ -4,480 +4,288 @@
     "question": "Tell me about yourself",
     "answer": "My name is ________. I am from ________. I have completed my ________ in ________ from ________. I have skills in Android development using Kotlin, Jetpack Compose, MVVM, and Firebase. I have worked on projects like ________ where I implemented features like ________. I am a quick learner and I am looking for an opportunity to start my career and contribute to the organization.",
     "category": "Introduction",
-    "tips": "Keep it structured: introduction, education, skills, projects, and goal.",
-    "mistakes": "Do not tell personal life story or speak too long."
+    "tips": "Follow intro → education → skills → project → goal.",
+    "mistakes": "Do not speak too long."
   },
   {
     "id": 2,
-    "question": "Why should we hire you?",
-    "answer": "You should hire me because I have strong fundamentals in Android development and hands-on experience in building applications. I am dedicated, quick to learn, and I give my 100 percent to my work. I am confident that I can contribute effectively to your team.",
-    "category": "General",
-    "tips": "Focus on skills + attitude + contribution.",
-    "mistakes": "Do not say 'because I need a job'."
+    "question": "What are your strengths?",
+    "answer": "My strengths are that I am a fast learner, I adapt quickly to new technologies, and I am consistent in my work.",
+    "category": "Strengths & Weakness",
+    "tips": "Mention 2–3 strengths.",
+    "mistakes": "Avoid generic answers."
   },
   {
     "id": 3,
-    "question": "What are your strengths?",
-    "answer": "My strengths are that I am a fast learner, I adapt quickly to new technologies, and I am consistent in my work. I have a strong problem-solving approach and I focus on completing tasks with full dedication.",
-    "category": "General",
-    "tips": "Pick 2-3 strong qualities with impact.",
-    "mistakes": "Do not give generic answers without meaning."
+    "question": "Tell me about a challenge you faced",
+    "answer": "During my project ________, I faced a challenge related to ________. I analyzed it and implemented a solution which solved the issue.",
+    "category": "Challenges",
+    "tips": "Use problem → action → result.",
+    "mistakes": "Do not say no challenges."
   },
   {
     "id": 4,
-    "question": "What are your weaknesses?",
-    "answer": "My weakness is that I sometimes focus too much on perfecting my work, which can take extra time. However, I am working on improving my time management and prioritizing tasks better.",
-    "category": "General",
-    "tips": "Show improvement mindset.",
-    "mistakes": "Do not say 'I have no weakness'."
+    "question": "Describe a time you worked in a team",
+    "answer": "In my project ________, we divided tasks and communicated regularly which helped us complete the project successfully.",
+    "category": "Teamwork",
+    "tips": "Show collaboration.",
+    "mistakes": "Do not say you worked alone."
   },
   {
     "id": 5,
-    "question": "Why do you want this job?",
-    "answer": "I want this job because it matches my skills and interests in Android development. I want to work in a professional environment where I can improve my skills, gain experience, and contribute to real projects.",
-    "category": "Motivation",
-    "tips": "Connect role + growth + interest.",
-    "mistakes": "Avoid salary-focused answers."
+    "question": "What do you know about our company?",
+    "answer": "Your company ________ works in ________ and focuses on ________. It has a strong reputation in the industry.",
+    "category": "Company Questions",
+    "tips": "Research company.",
+    "mistakes": "Do not say you don't know."
   },
   {
     "id": 6,
-    "question": "Where do you see yourself in 5 years?",
-    "answer": "In the next 5 years, I see myself as a skilled Android developer working on advanced projects, contributing to team success, and continuously improving my technical and problem-solving skills.",
-    "category": "Future",
-    "tips": "Show growth and stability.",
-    "mistakes": "Do not say unrealistic goals."
+    "question": "How do you solve a problem?",
+    "answer": "I understand the problem, break it into parts, research solutions, and implement the best approach.",
+    "category": "Problem Solving",
+    "tips": "Explain steps.",
+    "mistakes": "Do not give random answer."
   },
   {
     "id": 7,
     "question": "Tell me about your project",
-    "answer": "I have worked on a project named ________. It is an Android application built using Kotlin and Jetpack Compose. The main features of the app are ________. I used MVVM architecture and integrated Firebase for backend support. This project helped me understand real-world development and problem solving.",
-    "category": "Project",
-    "tips": "Explain tech stack + features + learning.",
-    "mistakes": "Do not explain without structure."
+    "answer": "I worked on a project ________ built using Kotlin and Jetpack Compose with features like ________.",
+    "category": "Projects",
+    "tips": "Explain clearly.",
+    "mistakes": "Do not be vague."
   },
   {
     "id": 8,
-    "question": "What technologies do you know?",
-    "answer": "I have knowledge of Kotlin, Jetpack Compose, MVVM architecture, Coroutines, Retrofit, Room Database, and Firebase. I also understand Git for version control.",
-    "category": "Technical HR",
-    "tips": "Mention only what you know well.",
-    "mistakes": "Do not list too many unknown technologies."
+    "question": "How are your communication skills?",
+    "answer": "My communication skills are good and I am improving them continuously.",
+    "category": "Communication",
+    "tips": "Show improvement.",
+    "mistakes": "Do not say weak."
   },
   {
     "id": 9,
-    "question": "Are you a team player?",
-    "answer": "Yes, I am a team player. I believe in collaboration, sharing ideas, and helping team members to achieve common goals. I am comfortable working in a team environment.",
-    "category": "Behavioral",
-    "tips": "Show teamwork mindset.",
-    "mistakes": "Do not give one-word answer."
+    "question": "Explain MVVM architecture",
+    "answer": "MVVM separates Model, View, and ViewModel. ViewModel handles logic and exposes data using StateFlow or LiveData.",
+    "category": "Core Concepts",
+    "tips": "Keep structured.",
+    "mistakes": "Do not mix layers."
   },
   {
     "id": 10,
-    "question": "How do you handle pressure?",
-    "answer": "I handle pressure by staying calm and focusing on the task. I break the problem into smaller parts and solve it step by step. This helps me manage work effectively even under pressure.",
-    "category": "Behavioral",
-    "tips": "Show calm + structured thinking.",
-    "mistakes": "Do not say 'I panic'."
+    "question": "What is StateFlow?",
+    "answer": "StateFlow is a state holder that emits current and updated values to the UI.",
+    "category": "Core Concepts",
+    "tips": "Mention state.",
+    "mistakes": "Do not confuse with LiveData."
   },
   {
     "id": 11,
-    "question": "Why did you choose Android development?",
-    "answer": "I chose Android development because I am interested in building real-world applications that people use daily. I enjoy creating user interfaces and solving problems, and Android development allows me to do both.",
-    "category": "Motivation",
-    "tips": "Show passion + logic.",
-    "mistakes": "Avoid random answers."
+    "question": "Explain your project architecture",
+    "answer": "In my project ________, I used MVVM architecture where ViewModel handled logic and UI observed data using StateFlow.",
+    "category": "Project Questions",
+    "tips": "Explain architecture.",
+    "mistakes": "Do not be unclear."
   },
   {
     "id": 12,
-    "question": "What motivates you?",
-    "answer": "I am motivated by learning new technologies, building applications, and solving problems. Seeing my work being used by others gives me motivation.",
-    "category": "Motivation",
-    "tips": "Keep it genuine.",
-    "mistakes": "Do not give fake answers."
+    "question": "What challenges did you face in your project?",
+    "answer": "I faced issues related to ________ and solved them by implementing ________.",
+    "category": "Project Questions",
+    "tips": "Show problem-solving.",
+    "mistakes": "Do not say none."
   },
   {
     "id": 13,
-    "question": "What is your biggest achievement?",
-    "answer": "My biggest achievement is completing my project ________ where I implemented features like ________. It helped me improve my development skills and confidence.",
-    "category": "General",
-    "tips": "Mention measurable achievement.",
-    "mistakes": "Do not give small irrelevant example."
+    "question": "What is Jetpack Compose?",
+    "answer": "Jetpack Compose is a declarative UI toolkit used to build Android UI using composable functions.",
+    "category": "Android Questions",
+    "tips": "Mention declarative UI.",
+    "mistakes": "Do not confuse with XML."
   },
   {
     "id": 14,
-    "question": "Are you willing to relocate?",
-    "answer": "Yes, I am open to relocation as per the company requirements.",
-    "category": "General",
-    "tips": "Be flexible.",
-    "mistakes": "Do not hesitate unnecessarily."
+    "question": "What is Activity Lifecycle?",
+    "answer": "It includes onCreate, onStart, onResume, onPause, onStop, and onDestroy methods.",
+    "category": "Android Questions",
+    "tips": "List methods.",
+    "mistakes": "Do not miss order."
   },
   {
     "id": 15,
-    "question": "Do you have any questions for us?",
-    "answer": "Yes, I would like to know about the team structure and the kind of projects I will be working on. Also, what technologies are mainly used in your development process?",
-    "category": "Closing",
-    "tips": "Always ask something meaningful.",
-    "mistakes": "Do not say 'No questions'."
+    "question": "Write logic to reverse a string",
+    "answer": "Use a loop or built-in function like string.reversed() to reverse the string.",
+    "category": "Coding Logic",
+    "tips": "Keep simple.",
+    "mistakes": "Do not overcomplicate."
+  },
+  {
+    "id": 16,
+    "question": "Find largest number in array",
+    "answer": "Iterate through array and compare each element to find the maximum value.",
+    "category": "Coding Logic",
+    "tips": "Use loop.",
+    "mistakes": "Do not miss edge cases."
+  },
+  {
+    "id": 17,
+    "question": "How do you debug an app?",
+    "answer": "I use Logcat, breakpoints, and step-by-step debugging to identify and fix issues.",
+    "category": "Debugging",
+    "tips": "Mention tools.",
+    "mistakes": "Do not say random guessing."
+  },
+  {
+    "id": 18,
+    "question": "What will you do if app crashes?",
+    "answer": "I check logs, identify the error, reproduce the issue, and fix it systematically.",
+    "category": "Debugging",
+    "tips": "Show process.",
+    "mistakes": "Do not panic."
   },
     {
-      "id": 16,
-      "question": "Tell me about a challenge you faced",
-      "answer": "During my project ________, I faced a challenge related to ________. Initially, I was not able to solve it, but I analyzed the problem, researched solutions, and implemented ________. Finally, I resolved the issue and learned the importance of problem-solving and patience.",
-      "category": "Behavioral",
-      "tips": "Use real example with problem → action → result.",
-      "mistakes": "Do not say 'I never faced challenges'."
-    },
-    {
-      "id": 17,
-      "question": "Tell me about a failure",
-      "answer": "In my project ________, I made a mistake in ________ which caused ________. I realized my mistake, corrected it, and ensured it would not happen again. This taught me to be more careful and improve my approach.",
-      "category": "Behavioral",
-      "tips": "Show learning from failure.",
-      "mistakes": "Do not blame others."
-    },
-    {
-      "id": 18,
-      "question": "How do you manage your time?",
-      "answer": "I manage my time by prioritizing tasks, breaking work into smaller parts, and setting deadlines. This helps me stay organized and complete tasks efficiently.",
-      "category": "Behavioral",
-      "tips": "Show planning and discipline.",
-      "mistakes": "Do not give vague answer."
-    },
-    {
       "id": 19,
-      "question": "What is your ideal work environment?",
-      "answer": "My ideal work environment is where there is teamwork, learning opportunities, and a positive atmosphere. I prefer a place where I can grow and contribute effectively.",
-      "category": "General",
-      "tips": "Align with company culture.",
-      "mistakes": "Do not demand unrealistic conditions."
+      "question": "Why should we hire you?",
+      "answer": "You should hire me because I have strong fundamentals in Android development and hands-on project experience. I am a quick learner and I am dedicated to delivering quality work.",
+      "category": "Introduction",
+      "tips": "Focus on skills + contribution.",
+      "mistakes": "Do not say you need a job."
     },
     {
       "id": 20,
-      "question": "How do you learn new technology?",
-      "answer": "I learn new technology by studying documentation, watching tutorials, and implementing it in projects. Hands-on practice helps me understand concepts deeply.",
-      "category": "Learning",
-      "tips": "Show practical learning approach.",
-      "mistakes": "Do not say only theory."
+      "question": "What motivates you?",
+      "answer": "I am motivated by learning new technologies, building real-world applications, and solving problems.",
+      "category": "Strengths & Weakness",
+      "tips": "Keep it genuine.",
+      "mistakes": "Avoid fake answers."
     },
     {
       "id": 21,
-      "question": "What are your short-term goals?",
-      "answer": "My short-term goal is to get a job in Android development, improve my skills, and gain real-world experience.",
-      "category": "Future",
-      "tips": "Keep it realistic and relevant.",
-      "mistakes": "Avoid unrelated goals."
+      "question": "Tell me about a difficult situation",
+      "answer": "During my project ________, I faced a difficult issue related to ________. I analyzed it and solved it using ________.",
+      "category": "Challenges",
+      "tips": "Show problem-solving.",
+      "mistakes": "Do not say easy."
     },
     {
       "id": 22,
-      "question": "What are your long-term goals?",
-      "answer": "My long-term goal is to become an expert Android developer and work on large-scale applications while continuously learning new technologies.",
-      "category": "Future",
-      "tips": "Show growth vision.",
-      "mistakes": "Do not say unrealistic things."
-    },
-    {
-      "id": 23,
-      "question": "How do you handle criticism?",
-      "answer": "I take criticism positively and see it as an opportunity to improve. I analyze the feedback and work on areas where I can do better.",
-      "category": "Behavioral",
-      "tips": "Show maturity.",
-      "mistakes": "Do not react negatively."
-    },
-    {
-      "id": 24,
-      "question": "Do you prefer working alone or in a team?",
-      "answer": "I am comfortable working both independently and in a team. I can handle individual tasks efficiently and also collaborate well with team members.",
-      "category": "Behavioral",
-      "tips": "Show flexibility.",
-      "mistakes": "Do not strongly prefer only one."
-    },
-    {
-      "id": 25,
-      "question": "What do you know about our company?",
-      "answer": "Your company ________ works in ________. It focuses on ________ and has a strong reputation in the industry. I am interested in being part of such an organization.",
-      "category": "Company",
-      "tips": "Research before interview.",
-      "mistakes": "Do not say 'I don't know'."
-    },
-    {
-      "id": 26,
-      "question": "Why should we not hire you?",
-      "answer": "I believe I am a strong candidate for this role. However, I am still learning and improving my communication skills, but I am actively working on it.",
-      "category": "Tricky",
-      "tips": "Turn negative into improvement.",
-      "mistakes": "Do not criticize yourself heavily."
-    },
-    {
-      "id": 27,
-      "question": "Are you comfortable with deadlines?",
-      "answer": "Yes, I am comfortable working with deadlines. I plan my tasks properly and ensure timely completion.",
-      "category": "Work",
-      "tips": "Show discipline.",
-      "mistakes": "Do not say you struggle."
-    },
-    {
-      "id": 28,
-      "question": "What makes you unique?",
-      "answer": "What makes me unique is my dedication to learning and my ability to quickly adapt to new technologies. I focus on practical implementation rather than just theory.",
-      "category": "General",
-      "tips": "Highlight differentiator.",
-      "mistakes": "Avoid generic answer."
-    },
-    {
-      "id": 29,
-      "question": "What is your expected salary?",
-      "answer": "As a fresher, I am open to a reasonable salary as per company standards. My priority is to learn and grow.",
-      "category": "Salary",
-      "tips": "Stay flexible.",
-      "mistakes": "Do not demand high salary."
-    },
-    {
-      "id": 30,
-      "question": "Can you work under pressure?",
-      "answer": "Yes, I can work under pressure by staying focused and managing tasks step by step. I try to maintain quality even in stressful situations.",
-      "category": "Behavioral",
-      "tips": "Stay calm in answer.",
-      "mistakes": "Do not say no."
-    },
-    {
-      "id": 31,
-      "question": "What do you do in your free time?",
-      "answer": "In my free time, I focus on improving my skills by practicing coding, building small projects, and learning new technologies.",
-      "category": "General",
-      "tips": "Keep it productive.",
-      "mistakes": "Avoid irrelevant hobbies."
-    },
-    {
-      "id": 32,
-      "question": "Describe yourself in one word",
-      "answer": "Dedicated.",
-      "category": "General",
-      "tips": "Choose strong word.",
-      "mistakes": "Do not overthink."
-    },
-    {
-      "id": 33,
-      "question": "What are your communication skills?",
-      "answer": "My communication skills are good, and I am continuously improving them by practicing and interacting with others.",
-      "category": "General",
-      "tips": "Show improvement mindset.",
-      "mistakes": "Do not say weak directly."
-    },
-    {
-      "id": 34,
-      "question": "What do you expect from this company?",
-      "answer": "I expect learning opportunities, a supportive work environment, and a chance to work on real projects.",
-      "category": "Company",
-      "tips": "Keep expectations realistic.",
-      "mistakes": "Do not demand too much."
-    },
-    {
-      "id": 35,
-      "question": "How do you stay updated?",
-      "answer": "I stay updated by following documentation, watching tutorials, and practicing coding regularly.",
-      "category": "Learning",
-      "tips": "Mention sources.",
-      "mistakes": "Do not say 'I don't follow'."
-    },
-    {
-      "id": 36,
-      "question": "Explain MVVM architecture",
-      "answer": "MVVM stands for Model View ViewModel. Model handles data, View displays UI, and ViewModel manages business logic and state. ViewModel exposes data using LiveData or StateFlow and survives configuration changes.",
-      "category": "Technical Round",
-      "tips": "Keep explanation structured.",
-      "mistakes": "Do not mix layers."
-    },
-    {
-      "id": 37,
-      "question": "What is Jetpack Compose?",
-      "answer": "Jetpack Compose is a modern declarative UI toolkit used to build Android interfaces. UI is built using composable functions and updates automatically when state changes.",
-      "category": "Technical Round",
-      "tips": "Focus on declarative UI.",
-      "mistakes": "Do not compare incorrectly with XML."
-    },
-    {
-      "id": 38,
-      "question": "What is StateFlow?",
-      "answer": "StateFlow is a state holder flow that emits current and updated values. It is used in ViewModel to manage UI state in a reactive way.",
-      "category": "Technical Round",
-      "tips": "Mention state handling.",
-      "mistakes": "Do not confuse with LiveData."
-    },
-    {
-      "id": 39,
-      "question": "Difference between val and var",
-      "answer": "val is immutable and cannot be reassigned after initialization. var is mutable and its value can be changed.",
-      "category": "Technical Round",
-      "tips": "Keep it simple.",
-      "mistakes": "Do not over-explain."
-    },
-    {
-      "id": 40,
-      "question": "What is Retrofit?",
-      "answer": "Retrofit is a type-safe HTTP client used in Android to make API calls. It converts JSON responses into Kotlin objects using converters.",
-      "category": "Technical Round",
-      "tips": "Mention API usage.",
-      "mistakes": "Do not give vague answer."
-    },
-    {
-      "id": 41,
-      "question": "What is Room Database?",
-      "answer": "Room is a persistence library that provides abstraction over SQLite. It uses entities, DAO, and database classes to store local data.",
-      "category": "Technical Round",
-      "tips": "Explain components.",
-      "mistakes": "Do not skip DAO."
-    },
-    {
-      "id": 42,
-      "question": "What are Coroutines?",
-      "answer": "Coroutines are used for asynchronous programming in Kotlin. They allow executing tasks without blocking the main thread.",
-      "category": "Technical Round",
-      "tips": "Focus on async.",
-      "mistakes": "Do not say threads."
-    },
-    {
-      "id": 43,
-      "question": "What is a suspend function?",
-      "answer": "A suspend function is a function that can be paused and resumed without blocking a thread. It is used inside coroutines.",
-      "category": "Technical Round",
-      "tips": "Mention pause/resume.",
-      "mistakes": "Do not say delay only."
-    },
-    {
-      "id": 44,
-      "question": "What is Firebase?",
-      "answer": "Firebase is a backend platform that provides services like authentication, Firestore database, and cloud storage.",
-      "category": "Technical Round",
-      "tips": "Mention services.",
-      "mistakes": "Do not say only database."
-    },
-    {
-      "id": 45,
-      "question": "What is Activity Lifecycle?",
-      "answer": "Activity lifecycle includes methods like onCreate, onStart, onResume, onPause, onStop, and onDestroy which manage activity states.",
-      "category": "Technical Round",
-      "tips": "List methods.",
-      "mistakes": "Do not miss order."
-    },
-    {
-      "id": 46,
-      "question": "What is recomposition in Compose?",
-      "answer": "Recomposition is the process where Compose updates only the parts of UI that depend on changed state.",
-      "category": "Technical Round",
-      "tips": "Focus on UI update.",
-      "mistakes": "Do not say full redraw."
-    },
-    {
-      "id": 47,
-      "question": "What is ViewModel?",
-      "answer": "ViewModel stores UI-related data and survives configuration changes. It separates UI logic from business logic.",
-      "category": "Technical Round",
-      "tips": "Mention lifecycle.",
-      "mistakes": "Do not confuse with Activity."
-    },
-    {
-      "id": 48,
-      "question": "What is Dependency Injection?",
-      "answer": "Dependency Injection is a technique where objects are provided instead of being created manually, improving testability and modularity.",
-      "category": "Technical Round",
-      "tips": "Explain purpose.",
-      "mistakes": "Do not give definition only."
-    },
-    {
-      "id": 49,
-      "question": "What is Hilt?",
-      "answer": "Hilt is a dependency injection library for Android that simplifies providing dependencies using annotations.",
-      "category": "Technical Round",
-      "tips": "Mention DI tool.",
-      "mistakes": "Do not confuse with Dagger only."
-    },
-    {
-      "id": 50,
-      "question": "What is Flow?",
-      "answer": "Flow is a cold asynchronous data stream that emits multiple values sequentially.",
-      "category": "Technical Round",
-      "tips": "Mention stream.",
-      "mistakes": "Do not say single value."
-    },
-    {
-      "id": 51,
-      "question": "What is Git?",
-      "answer": "Git is a version control system used to track changes in code and collaborate with other developers.",
-      "category": "Technical Round",
-      "tips": "Keep it basic.",
-      "mistakes": "Do not go deep."
-    },
-    {
-      "id": 52,
-      "question": "Describe a situation where you worked in a team",
-      "answer": "In my project ________, I worked with team members where we divided tasks like UI, backend, and testing. We communicated regularly and completed the project successfully.",
+      "question": "How do you handle disagreements in a team?",
+      "answer": "I listen to others, understand their perspective, and try to find a solution that benefits everyone.",
       "category": "Teamwork",
-      "tips": "Use real example.",
-      "mistakes": "Do not say alone."
-    },
-    {
-      "id": 53,
-      "question": "How do you solve a problem?",
-      "answer": "I first understand the problem, break it into smaller parts, research possible solutions, and then implement and test the best approach.",
-      "category": "Problem Solving",
-      "tips": "Show steps.",
-      "mistakes": "Do not say randomly."
-    },
-    {
-      "id": 54,
-      "question": "What if you don’t know an answer?",
-      "answer": "If I do not know an answer, I honestly admit it and try to explain my approach or related knowledge.",
-      "category": "Situational",
-      "tips": "Be honest.",
-      "mistakes": "Do not fake answer."
-    },
-    {
-      "id": 55,
-      "question": "How do you handle conflict in a team?",
-      "answer": "I handle conflict by listening to all perspectives, discussing calmly, and finding a solution that benefits the team.",
-      "category": "Teamwork",
-      "tips": "Show maturity.",
+      "tips": "Show calm attitude.",
       "mistakes": "Do not argue."
     },
     {
-      "id": 56,
-      "question": "What is your role in a project?",
-      "answer": "In my project ________, my role was ________ where I handled ________ and ensured smooth functionality.",
-      "category": "Projects",
-      "tips": "Be specific.",
-      "mistakes": "Do not be vague."
-    },
-    {
-      "id": 57,
-      "question": "What are your hobbies?",
-      "answer": "My hobbies include learning new technologies, practicing coding, and building small projects.",
-      "category": "Personality",
-      "tips": "Keep relevant.",
-      "mistakes": "Avoid irrelevant hobbies."
-    },
-    {
-      "id": 58,
-      "question": "How do you handle deadlines?",
-      "answer": "I plan my tasks, set priorities, and ensure timely completion by managing my time effectively.",
-      "category": "Work",
-      "tips": "Show planning.",
-      "mistakes": "Do not say struggle."
-    },
-    {
-      "id": 59,
-      "question": "Are you comfortable learning new tools?",
-      "answer": "Yes, I am comfortable learning new tools and technologies and I adapt quickly by practicing and implementing them.",
-      "category": "Learning",
-      "tips": "Show adaptability.",
-      "mistakes": "Do not hesitate."
-    },
-    {
-      "id": 60,
-      "question": "Why do you want to join our company?",
-      "answer": "I want to join your company because it provides opportunities to work on real-world projects and helps in professional growth.",
+      "id": 23,
+      "question": "Why do you want to join this company?",
+      "answer": "I want to join this company because it offers opportunities to work on real-world projects and grow professionally.",
       "category": "Company Questions",
-      "tips": "Align with company.",
-      "mistakes": "Do not give generic answer."
+      "tips": "Align with company goals.",
+      "mistakes": "Avoid generic answers."
+    },
+    {
+      "id": 24,
+      "question": "How do you approach a new problem?",
+      "answer": "I first understand the problem, break it into parts, research solutions, and then implement the best approach.",
+      "category": "Problem Solving",
+      "tips": "Explain steps.",
+      "mistakes": "Do not rush."
+    },
+    {
+      "id": 25,
+      "question": "What technologies did you use in your project?",
+      "answer": "In my project ________, I used Kotlin, Jetpack Compose, MVVM, Retrofit, and Firebase.",
+      "category": "Projects",
+      "tips": "Mention tech stack.",
+      "mistakes": "Do not list unknown tools."
+    },
+    {
+      "id": 26,
+      "question": "How do you improve your communication?",
+      "answer": "I improve communication by practicing, speaking clearly, and listening actively.",
+      "category": "Communication",
+      "tips": "Show improvement.",
+      "mistakes": "Do not say perfect."
+    },
+    {
+      "id": 27,
+      "question": "What is LiveData?",
+      "answer": "LiveData is a lifecycle-aware data holder that updates UI automatically when data changes.",
+      "category": "Core Concepts",
+      "tips": "Mention lifecycle.",
+      "mistakes": "Do not confuse with Flow."
+    },
+    {
+      "id": 28,
+      "question": "What is Repository pattern?",
+      "answer": "Repository acts as a single source of truth and manages data from multiple sources like API and database.",
+      "category": "Core Concepts",
+      "tips": "Explain role.",
+      "mistakes": "Do not skip purpose."
+    },
+    {
+      "id": 29,
+      "question": "Explain your app flow",
+      "answer": "User interacts with UI, ViewModel handles logic, Repository manages data, and UI updates using StateFlow.",
+      "category": "Project Questions",
+      "tips": "Explain flow clearly.",
+      "mistakes": "Do not confuse layers."
+    },
+    {
+      "id": 30,
+      "question": "How did you handle API errors?",
+      "answer": "I handled API errors using try-catch, response checking, and showing proper UI messages.",
+      "category": "Project Questions",
+      "tips": "Show real handling.",
+      "mistakes": "Do not ignore errors."
+    },
+    {
+      "id": 31,
+      "question": "What is RecyclerView?",
+      "answer": "RecyclerView is used to display large lists efficiently by recycling views.",
+      "category": "Android Questions",
+      "tips": "Mention efficiency.",
+      "mistakes": "Do not confuse with ListView."
+    },
+    {
+      "id": 32,
+      "question": "What is Intent?",
+      "answer": "Intent is used to navigate between activities or send data.",
+      "category": "Android Questions",
+      "tips": "Keep simple.",
+      "mistakes": "Do not over-explain."
+    },
+    {
+      "id": 33,
+      "question": "Check if a number is prime",
+      "answer": "Loop from 2 to n/2 and check divisibility. If divisible, it is not prime.",
+      "category": "Coding Logic",
+      "tips": "Use loop.",
+      "mistakes": "Do not miss edge cases."
+    },
+    {
+      "id": 34,
+      "question": "Find sum of array",
+      "answer": "Iterate through array and add each element to get total sum.",
+      "category": "Coding Logic",
+      "tips": "Simple loop.",
+      "mistakes": "Avoid complexity."
+    },
+    {
+      "id": 35,
+      "question": "How do you find bugs?",
+      "answer": "I use logs, breakpoints, and testing to identify bugs.",
+      "category": "Debugging",
+      "tips": "Mention tools.",
+      "mistakes": "Do not guess."
+    },
+    {
+      "id": 36,
+      "question": "What is Logcat?",
+      "answer": "Logcat is a tool used to view logs and debug Android applications.",
+      "category": "Debugging",
+      "tips": "Mention debugging.",
+      "mistakes": "Do not ignore usage."
     }
 
 

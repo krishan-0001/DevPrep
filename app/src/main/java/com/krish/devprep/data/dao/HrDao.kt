@@ -21,5 +21,8 @@ interface HrDao{
     @Query("UPDATE hr_questions SET isBookmarked = :state WHERE id = :id")
     suspend fun updateBookmark(id: Int, state: Boolean)
 
+    @Query("DELETE FROM hr_questions")
+    suspend fun clearAll()
+
 
 }

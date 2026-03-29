@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.PhoneAndroid
+import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Sync
@@ -68,29 +69,13 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
                 }
         }
     }
-//    val categories = listOf(
-//        Category("Guide",Icons.Default.MenuBook),
-//        Category("Coding",Icons.Default.Code),
-//        Category("Kotlin",Icons.Default.Code),
-//        Category("JetPack Compose",Icons.Default.Android),
-//        Category("MVVM & Architecture",Icons.Default.AccountTree),
-//        Category("Coroutines",Icons.Default.Sync),
-//        Category("Retrofit_API",Icons.Default.Cloud),
-//        Category("Room Database",Icons.Default.Storage),
-//        Category("Android Basics",Icons.Default.PhoneAndroid),
-//        Category("System Design",Icons.Default.Settings),
-//        Category("Firebase",Icons.Default.Sync),
-//        Category("Hilt",Icons.Default.Sync),
-//        Category("Flow & StateFlow",Icons.Default.Sync),
-//        Category("Navigation",Icons.Default.Sync)
-//
-//    )
     val modules = listOf(
         Category("MCQ",Icons.Default.MenuBook),
         Category("Theory", Icons.Default.AccountTree),
         Category("Coding", Icons.Default.Code),
         Category("Guide", Icons.Default.MenuBook),
-        Category("HR", Icons.Default.PhoneAndroid)
+        Category("HR", Icons.Default.PhoneAndroid),
+        Category("AI Interview",Icons.Default.Psychology)
     )
     Box(modifier = Modifier.fillMaxSize()
         .background(
@@ -145,16 +130,6 @@ fun HomeScreen(navController: NavHostController, viewModel: QuestionViewModel){
             ) {
                 items(modules){module->
                     CategoryCard(module) {
-//                        if(module.title== "Guide"){
-//                            navController.navigate("guide")
-//                        }
-//                        else if(module.title == "Coding"){
-//                            navController.navigate("coding/${module.title}")
-//                        }
-//                        else{
-//                            val encoded = java.net.URLEncoder.encode(category.title, "UTF-8")
-//                            navController.navigate("questions/${encoded}")
-//                        }
                         val encoded = java.net.URLEncoder.encode(module.title, "UTF-8")
                         navController.navigate("categoryGroup/${encoded}")
 

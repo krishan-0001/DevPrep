@@ -15,6 +15,7 @@ import com.krish.devprep.data.viewmodel.AppViewModelFactory
 import com.krish.devprep.data.viewmodel.CodingViewModel
 import com.krish.devprep.data.viewmodel.HrViewModel
 import com.krish.devprep.data.viewmodel.TheoryViewModel
+import com.krish.devprep.screens.AiInterviewScreen
 import com.krish.devprep.screens.BookMarkScreen
 import com.krish.devprep.screens.CategoryGroupScreen
 import com.krish.devprep.screens.CodingScreen
@@ -82,6 +83,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier){
                 "HR" -> HrScreen(category = categoryDecoded,viewModel = hrViewModel)
                 else -> Text("Invalid module")
             }
+        }
+        composable("aiInterview") {
+            AiInterviewScreen(viewModel = hrViewModel)
         }
         composable("hr/{category"){ backStack->
             val category = backStack.arguments?.getString("category")?: ""
